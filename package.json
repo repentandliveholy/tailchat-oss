@@ -38,7 +38,7 @@
     "deploy": "node bin/production-deploy.js"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "workspaces": [
     "packages/*"

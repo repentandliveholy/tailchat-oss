@@ -140,11 +140,9 @@ async function peerSocket(port, token, botLogin, context) {
   };
 }
 
-// bots/client.mjs is dependency-free by design and needs Node 22+'s global
-// WebSocket; on an older runtime there is no client to test.
-test('a bot never answers its own message coming back down another socket', {
-  skip: typeof globalThis.WebSocket !== 'function' && 'bots/client.mjs needs Node 22+ (global WebSocket)',
-}, async (context) => {
+// bots/client.mjs is dependency-free by design: it relies on Node 22's global
+// WebSocket, which `engines` guarantees.
+test('a bot never answers its own message coming back down another socket', async (context) => {
   const { port } = await startService(context);
   const olgaToken = await register(port, 'olga');
   const romanToken = await register(port, 'roman');

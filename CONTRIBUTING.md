@@ -5,7 +5,7 @@ each other, so most rules here are about not letting them drift apart.
 
 ## Setup
 
-- Node.js 20+, then `npm ci`.
+- Node.js 22+, then `npm ci`.
 - Rust (the version in `crates/rust-toolchain.toml`) for the core.
 - JDK 17 and the Android SDK for `android/`.
 

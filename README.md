@@ -6,6 +6,11 @@ End-to-end encrypted messenger with three clients that talk to each other:
 - **Web / PWA** — the same account in a browser, installable on a phone or desktop.
 - **Android** — a native app (Kotlin, Jetpack Compose) with calls and push notifications.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/web-dark.png">
+  <img alt="Tailchat web client: a conversation between two accounts" src="docs/screenshots/web-light.png" width="800">
+</picture>
+
 Two ways to connect:
 
 - **Direct** — peer-to-peer between two machines on the same [Tailscale](https://tailscale.com)
@@ -26,7 +31,7 @@ encrypted. The web client is only as trustworthy as the server that serves it. R
 
 ## Quick start: terminal, direct mode
 
-Requires Node.js 20 or newer on both machines.
+Requires Node.js 22 or newer on both machines.
 
 ```bash
 git clone https://github.com/repentandliveholy/tailchat-oss.git

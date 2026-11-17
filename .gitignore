@@ -60,3 +60,6 @@ web/cloud/android-version.json
 tmux-*.log
 experiments/raven/
 /target/
+
+# Deploy specifics of this machine (see AGENTS.md §6)
+AGENTS.local.md

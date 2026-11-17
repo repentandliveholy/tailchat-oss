@@ -6,6 +6,11 @@
 - **Веб / PWA** — тот же аккаунт в браузере, ставится на телефон или компьютер.
 - **Android** — нативное приложение (Kotlin, Jetpack Compose) со звонками и push-уведомлениями.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/web-dark.png">
+  <img alt="Веб-клиент Tailchat: беседа двух аккаунтов" src="docs/screenshots/web-light.png" width="800">
+</picture>
+
 Два способа соединения:
 
 - **Напрямую** — P2P между двумя машинами в одном [Tailscale](https://tailscale.com)-tailnet
@@ -26,7 +31,7 @@
 
 ## Быстрый старт: терминал напрямую
 
-Нужен Node.js 20 или новее на обеих машинах.
+Нужен Node.js 22 или новее на обеих машинах.
 
 ```bash
 git clone https://github.com/repentandliveholy/tailchat-oss.git

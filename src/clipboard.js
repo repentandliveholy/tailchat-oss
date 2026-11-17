@@ -55,7 +55,9 @@ export function secureClipboardImageSpec(platform) {
   if (platform === 'darwin') return {
     cmd: 'osascript', args: ['-e', 'the clipboard as «class PNGf»'], encoding: 'utf8',
     decode: (stdout) => {
-      const match = /^«data PNGf([0-9a-fA-F]+)»\\s*$/.exec(stdout.trim());
+      // `trim()` already took the trailing newline; inside a regex literal
+      // `\\s` would be a backslash followed by `s`, which osascript never prints.
+      const match = /^«data PNGf([0-9a-fA-F]+)»$/.exec(stdout.trim());
       if (!match) throw new Error('Clipboard contains no PNG image');
       return Buffer.from(match[1], 'hex');
     },

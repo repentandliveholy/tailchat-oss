@@ -9,6 +9,7 @@ import {
   clipboardTextSpec,
   writeClipboardText,
   powershellLiteral,
+  secureClipboardImageSpec,
 } from '../src/clipboard.js';
 
 // PowerShell's own reading of a single-quoted string: the literal runs to the next
@@ -207,4 +208,39 @@ test('a clipboard tool that closes the pipe mid-write fails instead of killing t
   assert.equal(typeof onClose, 'function', 'the close handler is still attached');
   onClose(0);
   assert.equal(await pending, false, 'the promise settled exactly once');
+});
+
+// `/paste` on macOS: osascript prints the clipboard's PNG as `«data PNGf<hex>»`.
+// The decoder once read `»\\s*$` — a literal backslash and `s` — so every real
+// paste on a Mac came back as "no image".
+const PNG_MAGIC = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+
+test('macOS /paste decodes the «data PNGf…» osascript prints', () => {
+  const { decode } = secureClipboardImageSpec('darwin');
+  const bytes = Buffer.concat([PNG_MAGIC, Buffer.from('rest')]);
+  const printed = `«data PNGf${bytes.toString('hex').toUpperCase()}»\n`;
+  assert.deepEqual(decode(printed), bytes);
+  assert.throws(() => decode('«class utf8»'), /no PNG/);
+  assert.throws(() => decode(''), /no PNG/);
+});
+
+test('macOS /paste decodes what the real osascript prints for a PNG', {
+  skip: process.platform !== 'darwin' && 'needs osascript',
+}, async () => {
+  const { execFileSync } = await import('node:child_process');
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'tailchat-clip-'));
+  try {
+    const file = path.join(dir, 'p.png');
+    execFileSync('sips', ['-s', 'format', 'png', '-z', '2', '2',
+      '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GenericDocumentIcon.icns',
+      '--out', file], { stdio: 'ignore' });
+    // Same AppleScript coercion `/paste` uses, read from a file so the
+    // person's clipboard is never touched.
+    const printed = execFileSync('osascript',
+      ['-e', `read POSIX file "${file}" as «class PNGf»`], { encoding: 'utf8' });
+    const { decode } = secureClipboardImageSpec('darwin');
+    assert.deepEqual(decode(printed), fs.readFileSync(file));
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
 });

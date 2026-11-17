@@ -55,18 +55,18 @@ fi
 
 log "Platform: $PLATFORM"
 
-# 2. Check and Install Node.js (>= 18)
+# 2. Check and Install Node.js (>= 22)
 NODE_OK=0
 if command -v node >/dev/null 2>&1; then
   NODE_VER=$(node -v | sed 's/v//' | cut -d. -f1)
-  if [ "$NODE_VER" -ge 18 ]; then
+  if [ "$NODE_VER" -ge 22 ]; then
     NODE_OK=1
     info "Node.js $(node -v) is already installed"
   fi
 fi
 
 if [ "$NODE_OK" -eq 0 ]; then
-  log "Installing Node.js (>= 20)..."
+  log "Installing Node.js (>= 22)..."
   if [ "$IS_TERMUX" -eq 1 ]; then
     pkg update -y && pkg install -y nodejs
   elif [ "$IS_MACOS" -eq 1 ]; then
@@ -77,10 +77,10 @@ if [ "$NODE_OK" -eq 0 ]; then
     fi
   elif [ "$IS_LINUX" -eq 1 ]; then
     if command -v apt-get >/dev/null 2>&1; then
-      # Debian/Ubuntu's own package is often older than Node 20, and the
+      # Debian/Ubuntu's own package is often older than Node 22, and the
       # usual fix — piping a third-party setup script into `sudo bash` — is not
       # something an installer should do on your behalf.
-      err "Node.js 20+ is required. Install it, then run this installer again:"
+      err "Node.js 22+ is required. Install it, then run this installer again:"
       err "  https://nodejs.org/en/download/package-manager"
       exit 1
     elif command -v dnf >/dev/null 2>&1; then

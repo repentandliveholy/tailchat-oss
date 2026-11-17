@@ -75,3 +75,17 @@ test('the served installer is the same file as the one in the repository root', 
   assert.equal(served, root, 'copy install.sh to web/cloud/install.sh');
   assert.doesNotMatch(root, /\|\s*sudo\b/, 'no remote script is piped into sudo');
 });
+
+test('installers accept exactly the Node versions package.json engines allows', () => {
+  const pkg = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
+  const min = Number(/^>=(\d+)$/.exec(pkg.engines.node)?.[1]);
+  assert.ok(min >= 22, `engines.node is ${pkg.engines.node}`);
+  for (const name of ['../install.sh', '../install-guest.sh']) {
+    const text = fs.readFileSync(new URL(name, import.meta.url), 'utf8');
+    const checks = [...text.matchAll(/NODE_VER" -ge (\d+)/g)].map((m) => Number(m[1]));
+    assert.deepEqual(checks, [min], `${name} accepts Node ${checks} (engines: ${min})`);
+    for (const m of text.matchAll(/Node(?:\.js)? \(?>?=? ?(\d{2})\+?/g)) {
+      assert.equal(Number(m[1]), min, `${name}: "${m[0]}"`);
+    }
+  }
+});
