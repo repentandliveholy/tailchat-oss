@@ -1,0 +1,9 @@
+# `bin/production-deploy.js` builds the CLI installer (`web/cloud/tailchat.tar.gz`)
+# with `git archive`, which honours `export-ignore`. The web client's Apple emoji
+# PNGs (~9.5 MB) are only ever served to browsers; the terminal client never
+# reads them, so they stay out of the download.
+web/cloud/emoji/** export-ignore
+# The Rust core's sources (`crates/`) are built only in a checkout, by
+# `npm run build:core` (docs/specs/2026-11-01-rust-core.md §6); the installed
+# terminal runs without the native module and never builds it.
+crates/** export-ignore

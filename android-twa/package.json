@@ -1,0 +1,15 @@
+{
+  "name": "tailchat-android-twa",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Build tooling for the Trusted Web Activity APK that wraps web/cloud/. Not part of the published tailchat package.",
+  "type": "module",
+  "scripts": {
+    "generate-manifest": "node generate-manifest.mjs",
+    "scaffold": "node scaffold.mjs",
+    "build": "cd app && npx bubblewrap build"
+  },
+  "devDependencies": {
+    "@bubblewrap/cli": "^1.25.0"
+  }
+}

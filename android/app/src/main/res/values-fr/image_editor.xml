@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Identique au `pastedImage` du web, qui le reconnaît dans toutes les langues comme
+         « sans légende » et affiche l’image sans bulle. Ne pas le modifier sans le web. -->
+    <string name="cloud_image_placeholder">🖼 [Image]</string>
+    <string name="cloud_image_unreadable">Impossible de lire cette image.</string>
+    <string name="cloud_image_too_big">Image trop volumineuse même après compression.</string>
+
+    <string name="image_editor_title">Envoi d’une image</string>
+    <string name="image_editor_preview">Image à envoyer</string>
+    <string name="image_editor_cancel">Annuler</string>
+    <string name="image_editor_crop">Recadrer</string>
+    <string name="image_editor_ratio_group">Proportions</string>
+    <string name="image_editor_ratio_free">Libre</string>
+    <string name="image_editor_rotate">Pivoter de 90°</string>
+    <string name="image_editor_reset">Réinitialiser</string>
+    <string name="image_editor_caption">Légende</string>
+    <string name="image_editor_send">Envoyer</string>
+    <string name="image_editor_loading">Préparation de l’image…</string>
+    <string name="image_editor_failed">Impossible d’ouvrir cette image.</string>
+</resources>

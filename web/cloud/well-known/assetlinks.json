@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "org.repentandliveholy.tailchat",
+      "sha256_cert_fingerprints": [
+        "6A:34:26:A3:39:97:DF:DA:2B:C7:6C:71:CE:2E:F0:72:C7:60:E7:FD:F2:85:05:39:A9:D5:77:54:49:58:FE:BA"
+      ]
+    }
+  }
+]

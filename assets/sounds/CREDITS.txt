@@ -1,0 +1,72 @@
+The two call sounds in `android/app/src/main/res/raw` are the only audio in this
+repository that is not synthesised. Both were supplied by the owner and asked
+for by ear, so they are kept here as masters and cut into the raw resources the
+Android client ships.
+
+| master | becomes | how |
+|---|---|---|
+| `old-phone-ring.mp3` | `res/raw/call_ringback.wav` | the caller's ringback |
+| `mobile-phone-ringtone.mp3` | `res/raw/call_ring_phone.wav` | the ring, and the default one |
+
+Neither is written by `bin/make-android-cues.js`; that script prints a line
+saying so, and leaves both files alone. The derivation below is recorded rather
+than scripted because it is a one-off: the source files are steady recordings,
+the cuts are fixed, and nothing regenerates them.
+
+## `call_ringback.wav` — 1.185 s of bell inside a 3.800 s loop
+
+The source is a bell that rings for 1.150 s roughly every 2.295 s. One burst is
+taken with 30 ms of margin either side, peak-normalised to 0.34 (the ringback is
+held to the ear for the whole ring, so it is deliberately below full scale), and
+padded with silence to 3.800 s — the network's cadence, as far as the
+`RING_MAX_MS` budget allows, since `MediaPlayer` reloads the whole asset every
+cycle.
+
+```
+ffmpeg -v error -i old-phone-ring.mp3 -ac 1 -ar 44100 -f s16le ring.pcm
+# then, on that PCM: burst = [2.360 s, 3.545 s), gain = 0.34 / peak(burst),
+# zero-padded to 3.800 s, written as 44.1 kHz 16-bit mono WAV.
+```
+
+Measured: peak 0.34, RMS 0.107, 335 204 B, leading/trailing samples within
+±48 of zero (no click at the cut).
+
+## `call_ring_phone.wav` — a seamless 3.800 s loop
+
+The source rings continuously for ~36.5 s. The ring is not periodic at sample
+level (its envelope repeats every ~1.93 s, its bell partials do not), so the
+loop is closed by the usual overlap: a 3.850 s slice from the steady part
+(20.0 s in), whose first 50 ms is crossfaded from the material that follows the
+slice's end.
+
+```
+ffmpeg -v error -i mobile-phone-ringtone.mp3 -ac 1 -ar 44100 -f s16le ring2.pcm
+# seg = pcm[20.000 s, 23.850 s); out[i] = seg[i] for i < L-X, and
+# out[i] = (1-a) * seg[L+i] + a * seg[i] with a = i/(X-1) for the first X = 50 ms;
+# L = 3.800 s; gain = 0.64 / peak(seg) — the recording's own level, not the
+# house 0.5, because a ring plays alone through MediaPlayer and the master was
+# cut with that headroom.
+```
+
+Measured: peak 0.640, RMS 0.051, 335 204 B, and a loop seam of 15 — smaller
+than the file's own median sample-to-sample step (285), so the join is quieter
+than the audio around it.
+
+## Provenance
+
+Both recordings came to this repository from the owner's machine
+(`~/Downloads/phone/`), not from a package manager, and the filenames are the
+ones their download produced:
+
+* `freesound_community-mobile-phone-ringtone-6769.mp3` — Freesound's own
+  `freesound_community` account, sound id 6769. **Its licence has not been
+  checked from here**; Freesound's own-account uploads are usually CC0, but the
+  attribution requirement (if any) needs confirming before this ships widely.
+* `gautawa-old-phone-ring-272648.mp3` — the name follows Pixabay's
+  `<author>-<slug>-<id>` convention (`gautawa`, id 272648). Pixabay's content
+  licence permits use without attribution; the author name is recorded here so
+  the credit can be written if wanted. **Not verified from here either.**
+
+Both files are kept under their original names so either claim can be checked
+against the source. If a licence turns out to require attribution, the credit
+belongs in this file and in `docs/worklog.md`.

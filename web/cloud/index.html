@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="ru" data-theme="green" data-font="mono" data-wallpaper="aurora" data-depth="on">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070A0E">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Tailchat">
+  <meta name="description" content="End-to-end encrypted messenger for the terminal, the browser and Android.">
+  <title>Tailchat</title>
+  <link rel="manifest" href="/tailchat/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/tailchat/icons/icon-180.png?v=1.149">
+  <link rel="icon" type="image/svg+xml" href="/tailchat/icons/icon.svg?v=1.149">
+  <link rel="icon" type="image/png" sizes="192x192" href="/tailchat/icons/icon-192.png?v=1.149">
+  <script src="/tailchat/boot.js?v=1.149"></script>
+  <link rel="stylesheet" href="/tailchat/app.css?v=1.149">
+  <script src="/tailchat/app.js?v=1.149" defer></script>
+</head>
+<body>
+  <svg class="icon-sprite" aria-hidden="true" focusable="false" style="position:absolute; width:0; height:0; overflow:hidden;">
+    <symbol id="icon-paperclip" viewBox="0 0 24 24"><path d="M21.44 11.05 12.25 20.24a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></symbol>
+    <symbol id="icon-mic" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></symbol>
+    <symbol id="icon-send" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></symbol>
+    <symbol id="icon-arrow-down" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></symbol>
+    <symbol id="icon-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+    <symbol id="icon-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+    <symbol id="icon-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="icon-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="icon-eye-off" viewBox="0 0 24 24"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a18.5 18.5 0 0 1 5.06-5.94M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol>
+    <symbol id="icon-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+    <symbol id="icon-message-circle" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+    <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+    <symbol id="icon-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+    <symbol id="icon-volume-2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></symbol>
+    <symbol id="icon-volume-x" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></symbol>
+  </svg>
+  <noscript>
+    <p class="noscript-note">Для входа нужен включённый JavaScript.</p>
+  </noscript>
+
+  <canvas class="screensaver-canvas" id="screensaver-canvas" hidden></canvas>
+
+  <div class="boot" id="boot">
+    <p class="eyebrow">TAILCHAT / CLOUD</p>
+    <p class="boot-note" id="boot-note">Загрузка…</p>
+  </div>
+
+  <section class="auth" id="auth" aria-labelledby="auth-title" hidden>
+    <div class="auth-card">
+      <div class="auth-top-bar">
+        <p class="eyebrow">TAILCHAT / CLOUD</p>
+        <div class="header-controls">
+          <button class="pwa-install-btn" id="auth-pwa-install-btn" type="button" title="Установить приложение" hidden>📱 <span class="pwa-install-label">Установить</span></button>
+          <button class="theme-toggle-btn" id="auth-mode-btn" type="button" title="Светлая / тёмная тема"><svg class="icon" aria-hidden="true"><use href="#icon-sun"></use></svg> <span class="mode-name">Авто</span></button>
+          <button class="theme-toggle-btn" id="auth-theme-btn" type="button" title="Color Theme">🎨 <span class="theme-name">Green</span></button>
+          <div class="lang-switcher" role="group" aria-label="Language">
+            <button class="lang-btn" data-lang="en" type="button">EN</button>
+            <button class="lang-btn" data-lang="ru" type="button">RU</button>
+            <button class="lang-btn" data-lang="fr" type="button">FR</button>
+          </div>
+        </div>
+      </div>
+      <h1 class="auth-title" id="auth-title">Вход</h1>
+      <p class="auth-lead" id="auth-lead">Логин и пароль — те же, что в терминальном Tailchat с ключом --cloud.</p>
+
+      <form class="auth-form" id="auth-form" novalidate>
+        <div class="field">
+          <label for="field-login" id="label-login">Логин</label>
+          <input id="field-login" name="login" type="text" maxlength="32" autocomplete="username"
+                 autocapitalize="off" autocorrect="off" spellcheck="false" required>
+          <p class="field-hint" id="hint-login" hidden>Латиница и цифры, можно точку, дефис и подчёркивание. От 3 до 32 знаков.</p>
+        </div>
+
+        <div class="field" id="field-name-row" hidden>
+          <label for="field-name" id="label-name">Имя</label>
+          <input id="field-name" name="name" type="text" maxlength="24" autocomplete="nickname">
+          <p class="field-hint" id="hint-name">Его увидят собеседники. Оставьте пустым — возьмём логин.</p>
+        </div>
+
+        <div class="field" id="field-recovery-row" hidden>
+          <label for="field-recovery" id="label-recovery">Ключ восстановления</label>
+          <input id="field-recovery" name="recoveryKey" type="text" maxlength="64" placeholder="TC-XXXX-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false">
+          <p class="field-hint" id="hint-recovery">Аварийный ключ (Recovery Key), выданный при регистрации.</p>
+        </div>
+
+        <div class="field" id="field-password-row">
+          <label for="field-password" id="label-password">Пароль</label>
+          <div class="password-wrap">
+            <input id="field-password" name="password" type="password" maxlength="200" autocomplete="current-password" required>
+          <button class="pass-toggle-btn" id="pass-toggle-btn" type="button" title="Показать/скрыть пароль" aria-label="Show password"><svg class="icon" aria-hidden="true"><use href="#icon-eye"></use></svg></button>
+          </div>
+          <p class="field-hint" id="hint-password" hidden>Принимается любой пароль. Рекомендуется надёжный (например: Tr0ngP@ssw0rd!2026).</p>
+        </div>
+
+        <div class="field" id="field-extra-password-row" hidden>
+          <label for="field-extra-password" id="label-extra-password">Дополнительный пароль</label>
+          <div class="password-wrap">
+            <input id="field-extra-password" name="extraPassword" type="password" maxlength="200" autocomplete="current-password">
+            <button class="pass-toggle-btn" id="extra-pass-toggle-btn" type="button" title="Показать/скрыть пароль" aria-label="Show password"><svg class="icon" aria-hidden="true"><use href="#icon-eye"></use></svg></button>
+          </div>
+          <p class="field-hint" id="hint-extra-password">У этого аккаунта включён дополнительный пароль. Введите его, чтобы завершить вход.</p>
+        </div>
+
+        <div class="field" id="field-password-confirm-row" hidden>
+          <label for="field-password-confirm" id="label-password-confirm">Повторите пароль</label>
+          <div class="password-wrap">
+            <input id="field-password-confirm" name="passwordConfirm" type="password" maxlength="200" autocomplete="new-password">
+            <button class="pass-toggle-btn" id="pass-confirm-toggle-btn" type="button" title="Показать/скрыть пароль" aria-label="Show password"><svg class="icon" aria-hidden="true"><use href="#icon-eye"></use></svg></button>
+          </div>
+          <p class="field-hint" id="hint-password-confirm">Введите пароль ещё раз для проверки.</p>
+        </div>
+
+        <button class="primary-button" id="auth-submit" type="submit">Войти</button>
+      </form>
+
+      <p class="auth-error" id="auth-error" role="alert"></p>
+
+      <p class="auth-switch">
+        <span id="auth-switch-note">Ещё нет аккаунта?</span>
+        <button class="link-button" id="auth-switch" type="button">Регистрация</button>
+      </p>
+      <p class="auth-forgot-wrap" style="margin-top: 0.5rem; text-align: center;">
+        <button class="link-button" id="auth-forgot-btn" type="button">Забыли пароль?</button>
+      </p>
+      <p class="auth-apk-wrap">
+        <a class="apk-chip" id="auth-apk-link" href="/tailchat/tailchat.apk" download title="Скачать Android APK">Android APK</a>
+      </p>
+    </div>
+  </section>
+
+  <dialog class="modal-dialog" id="recovery-dialog">
+    <div class="modal-card">
+      <header class="modal-header">
+        <h2 class="modal-title" id="rec-modal-title">Ключ восстановления</h2>
+        <button class="icon-button modal-close" id="rec-close-btn" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg></button>
+      </header>
+      <section class="modal-section">
+        <p class="modal-hint" id="rec-modal-hint">Сохраните этот аварийный ключ в надёжном месте. Он потребуется для сброса пароля без email или телефона.</p>
+        <div class="invite-box">
+          <input id="rec-key-input" type="text" readonly>
+          <button class="primary-button" id="rec-copy-btn" type="button">Копировать</button>
+        </div>
+        <p class="modal-status" id="rec-copy-status" role="status"></p>
+        <button class="action-button" id="rec-continue-btn" type="button" style="margin-top: 1rem; width: 100%;">Продолжить в чат</button>
+      </section>
+    </div>
+  </dialog>
+
+  <div class="app" id="app" data-pane="list" data-roster="on" data-info="off" hidden>
+    <aside class="roster" id="roster" aria-labelledby="roster-title">
+      <header class="roster-top">
+        <p class="eyebrow">TAILCHAT / CLOUD</p>
+        <div class="roster-title-row">
+          <h1 class="roster-title" id="roster-title">Собеседники</h1>
+          <button class="roster-search-button" id="roster-search-button" type="button" title="Поиск диалогов" aria-label="Поиск диалогов" aria-expanded="false">
+            <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+          </button>
+          <button class="roster-add-button" id="invite-open-button" type="button" title="Добавить друга" aria-label="Добавить друга">
+            <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+          </button>
+        </div>
+        <div class="roster-self">
+          <span class="roster-self-name-row">
+            <span class="connection roster-self-dot" id="self-connection-dot" data-state="offline" aria-hidden="true">
+              <span class="connection-dot" aria-hidden="true"></span>
+            </span>
+            <span class="roster-self-name" id="self-name">—</span>
+          </span>
+          <span class="roster-self-login" id="self-login"></span>
+          <button class="profile-open-button" id="profile-open-button" type="button">Профиль</button>
+        </div>
+      </header>
+
+      <ul class="roster-list" id="roster-list"></ul>
+      <p class="empty-note" id="roster-empty" hidden>У вас пока нет друзей в списке. Нажмите «+» вверху, чтобы добавить.</p>
+    </aside>
+
+    <div class="pane-grip" id="pane-grip" role="separator" aria-orientation="vertical"
+         tabindex="0" aria-label="Изменить ширину панели собеседников"
+         aria-valuemin="220" aria-valuemax="460" aria-valuenow="300">
+      <span class="pane-grip-handle" aria-hidden="true">⋮</span>
+    </div>
+
+    <main class="talk">
+      <header class="talk-top">
+        <button class="back-button" id="back-button" type="button">
+          <span class="back-arrow" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-left"></use></svg></span>
+          <span id="back-button-label">Список</span>
+        </button>
+        <button class="talk-peer" id="talk-peer-btn" type="button"
+                aria-controls="info-panel" aria-expanded="false" title="Панель информации (Ctrl+I)">
+          <strong class="talk-peer-name" id="peer-name">Выберите собеседника</strong>
+          <span class="talk-peer-status" id="peer-status">Слева — все друзья, добавленные на этом сервере</span>
+        </button>
+        <button class="direct-toggle" id="direct-btn" type="button" data-state="idle"
+                title="Подключиться напрямую (e2e encryption p2p, минуя сервер)" aria-label="e2e encryption p2p" disabled>
+          <span aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#icon-zap"></use></svg></span>
+        </button>
+        <button class="conversation-menu-button" id="conversation-menu-button" type="button"
+                title="Опции диалога" aria-label="Опции диалога" disabled>⋮</button>
+      </header>
+
+      <div class="logo-band" id="logo-band" aria-hidden="true" title="Click to redraw logo (/logo)">
+        <pre class="logo-art" id="logo-art"></pre>
+      </div>
+
+      <div class="transcript-wrapper">
+        <div class="transcript" id="transcript" role="log" aria-live="polite" aria-label="Переписка">
+          <div class="placeholder" id="placeholder">
+            <span class="placeholder-mark" aria-hidden="true">/</span>
+            <h2 id="placeholder-title">Разговор пока не выбран</h2>
+            <p id="placeholder-text">Сообщения, присланные пока вы были офлайн, придут сразу после выбора собеседника.</p>
+          </div>
+        </div>
+        <button class="scroll-bottom-btn" id="scroll-bottom-btn" type="button" aria-label="Scroll to bottom" hidden>
+          <span class="scroll-arrow"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-down"></use></svg></span>
+          <span class="scroll-badge" id="scroll-badge" hidden>1</span>
+        </button>
+      </div>
+
+      <div class="typing-bar" id="typing-bar" hidden>
+        <span class="typing-chip">
+          <span class="typing-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="typing-shimmer" id="typing" aria-live="polite"></span>
+        </span>
+      </div>
+
+      <div class="composer-container" id="composer-container">
+        <!-- Interactive Slash Command Palette -->
+        <div class="command-palette" id="command-palette" hidden>
+          <div class="command-palette-header">
+            <span>COMMANDS</span>
+            <span class="command-palette-hint">[↑↓] navigate [Tab/Enter] select [Esc] dismiss</span>
+          </div>
+          <ul class="command-list" id="command-list"></ul>
+        </div>
+
+        <div class="voice-bar" id="voice-recording-bar" data-state="idle" role="group" aria-label="Запись голосового сообщения" hidden>
+          <span class="voice-bar-state" id="voice-rec-state">● ЗАПИСЬ</span>
+          <span class="voice-bar-timer" id="voice-rec-timer">0:00 / 10:00</span>
+          <div class="voice-meter" id="voice-meter" aria-hidden="true"></div>
+          <button class="voice-bar-btn voice-bar-cancel" id="voice-cancel-btn" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg> <span id="voice-cancel-label">Отмена</span></button>
+          <button class="voice-bar-btn voice-bar-send" id="voice-send-btn" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg> <span id="voice-send-label">Отправить</span></button>
+        </div>
+
+
+        <div class="bot-actions" id="bot-actions" role="group" aria-label="Действия бота" hidden></div>
+
+        <div class="composer-context" id="composer-context" hidden>
+          <span class="composer-context-icon" id="composer-context-icon" aria-hidden="true">✎</span>
+          <div class="composer-context-body">
+            <span class="composer-context-label" id="composer-context-label"></span>
+            <span class="composer-context-snippet" id="composer-context-snippet"></span>
+          </div>
+          <button class="composer-context-cancel" id="composer-context-cancel" type="button" aria-label="Отмена">
+            <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+          </button>
+        </div>
+
+        <form class="composer" id="composer">
+          <input id="file-input" type="file" hidden multiple>
+          <label class="sr-only" for="composer-input" id="composer-label">Сообщение</label>
+          <button class="attach-button" id="attach-button" type="button" title="Отправить файл" aria-label="Отправить файл" disabled>
+            <svg class="icon" aria-hidden="true"><use href="#icon-paperclip"></use></svg>
+          </button>
+          <div class="composer-grow" id="composer-grow" data-value="">
+            <textarea id="composer-input" name="message" rows="1" maxlength="4000"
+                      placeholder="Сначала выберите собеседника" enterkeyhint="send" disabled></textarea>
+          <button class="emoji-toggle" id="emoji-toggle" type="button" title="Эмодзи" aria-label="Эмодзи" aria-haspopup="dialog" disabled><img class="emoji" src="/tailchat/emoji/apple/64/1f60a.png" alt="😊" draggable="false"></button>
+          </div>
+          <button class="voice-button" id="voice-button" type="button" title="Голосовое сообщение" disabled>
+            <svg class="icon" aria-hidden="true"><use href="#icon-mic"></use></svg>
+          </button>
+          <button class="send-button" id="send-button" type="submit" disabled>
+            <svg class="icon send-icon" aria-hidden="true"><use href="#icon-send"></use></svg>
+            <span class="send-label" id="send-label">Отправить</span>
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <div class="pane-grip" id="info-grip" role="separator" aria-orientation="vertical"
+         tabindex="0" aria-label="Изменить ширину панели информации"
+         aria-valuemin="240" aria-valuemax="480" aria-valuenow="300">
+      <span class="pane-grip-handle" aria-hidden="true">⋮</span>
+    </div>
+
+    <aside class="info" id="info-panel" aria-labelledby="info-title">
+      <header class="info-top">
+        <p class="eyebrow" id="info-title">СОБЕСЕДНИК</p>
+        <button class="pane-close" id="info-close-btn" type="button" aria-label="Закрыть панель"><svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg></button>
+      </header>
+
+      <div class="info-body">
+        <section class="info-ident">
+          <span class="roster-avatar info-avatar" id="info-avatar" aria-hidden="true" hidden></span>
+          <strong class="info-name" id="info-name">—</strong>
+          <span class="info-login" id="info-login"></span>
+          <span class="info-presence" id="info-presence"></span>
+        </section>
+
+        <section class="info-block">
+          <h3 class="info-heading" id="info-stats-heading">Статистика</h3>
+          <dl class="info-rows">
+            <div class="info-row"><dt id="info-stat-msgs-label">Сообщений</dt><dd id="info-stat-msgs">0</dd></div>
+            <div class="info-row"><dt id="info-stat-images-label">Изображений</dt><dd id="info-stat-images">0</dd></div>
+            <div class="info-row"><dt id="info-stat-voice-label">Голосовых</dt><dd id="info-stat-voice">0</dd></div>
+            <div class="info-row"><dt id="info-stat-unread-label">Непрочитано</dt><dd id="info-stat-unread">0</dd></div>
+          </dl>
+        </section>
+
+        <section class="info-block" id="info-safety" hidden>
+          <h3 class="info-heading" id="info-safety-heading">Код безопасности</h3>
+          <div class="info-safety-code" id="info-safety-code"></div>
+          <p class="info-safety-status" id="info-safety-status"></p>
+          <div class="info-actions">
+            <button class="info-action" id="info-safety-confirm" type="button" hidden>Совпадает</button>
+            <button class="info-action" id="info-safety-trust" type="button" hidden>Принять новые ключи</button>
+          </div>
+        </section>
+
+        <section class="info-block">
+          <h3 class="info-heading" id="info-actions-heading">Действия</h3>
+          <div class="info-actions">
+            <button class="info-action" id="info-wake-btn" type="button" disabled>Позвать</button>
+            <button class="info-action" id="info-export-btn" type="button" disabled>Экспорт истории</button>
+            <button class="info-action" id="info-clear-btn" type="button" disabled>Очистить экран</button>
+          </div>
+        </section>
+
+        <section class="info-block">
+          <h3 class="info-heading" id="info-session-heading">Соединение</h3>
+          <dl class="info-rows">
+            <div class="info-row"><dt id="info-server-label">Сервер</dt><dd id="info-server">—</dd></div>
+            <div class="info-row"><dt id="info-transport-label">Транспорт</dt><dd id="info-transport">—</dd></div>
+            <div class="info-row"><dt id="info-latency-label">Задержка</dt><dd id="info-latency">—</dd></div>
+            <div class="info-row"><dt id="info-route-label">Маршрут</dt><dd id="info-route">—</dd></div>
+            <div class="info-row"><dt id="info-client-label">Клиент</dt><dd id="info-client">—</dd></div>
+          </dl>
+          <div class="info-actions">
+            <button class="info-action" id="info-ping-btn" type="button" disabled>Измерить</button>
+          </div>
+        </section>
+      </div>
+    </aside>
+
+    <footer class="statusline">
+      <div class="rail-logo" aria-hidden="true">tc</div>
+
+      <div class="statusline-group">
+        <button class="rail-btn" id="toggle-roster-btn" type="button" aria-controls="roster"
+                aria-pressed="true" title="Панель собеседников (Ctrl+B)">
+          <span class="rail-glyph" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#icon-message-circle"></use></svg></span><span class="rail-label" id="toggle-roster-label">Собеседники</span>
+        </button>
+        <button class="rail-btn" id="toggle-info-btn" type="button" aria-controls="info-panel"
+                aria-pressed="false" title="Панель информации (Ctrl+I)">
+          <span class="rail-glyph" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#icon-user"></use></svg></span><span class="rail-label" id="toggle-info-label">Инфо</span>
+        </button>
+      </div>
+      <div class="statusline-group statusline-settings">
+        <button class="rail-btn" id="settings-btn" type="button" title="Настройки">
+          <span class="rail-glyph" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#icon-menu"></use></svg></span><span class="rail-label" id="settings-btn-label">Настройки</span>
+        </button>
+      </div>
+
+      <div class="statusline-group statusline-tools">
+        <button class="rail-btn rail-update" id="update-available-btn" type="button" title="Доступно обновление" hidden>
+          <span class="rail-glyph" aria-hidden="true">↻</span><span class="rail-label" id="update-available-label">Обновить</span>
+        </button>
+        <button class="rail-btn" id="mode-btn" type="button" title="Светлая / тёмная тема">
+          <span class="rail-glyph" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#icon-sun"></use></svg></span><span class="rail-label mode-name">Авто</span>
+        </button>
+        <button class="rail-btn" id="sound-toggle-btn" type="button" aria-pressed="true" title="Отключить звуки">
+          <span class="rail-glyph" aria-hidden="true"><svg class="icon" aria-hidden="true"><use id="sound-toggle-icon" href="#icon-volume-2"></use></svg></span><span class="rail-label" id="sound-toggle-label">Звук: вкл</span>
+        </button>
+      </div>
+
+      <!-- «Свой профиль (аватар) переезжает в низ рельса» — HANDOFF §3.2. The
+           rail owns it on a desktop window; on a phone the rail is the bottom
+           bar and the roster header keeps its own copy (`#profile-open-button`),
+           so this one is not drawn there at all. -->
+      <div class="statusline-group statusline-self">
+        <button class="rail-btn rail-self" id="rail-self-btn" type="button" title="Профиль" aria-label="Профиль">
+          <span class="rail-avatar" id="rail-self-initial" aria-hidden="true">—</span>
+          <span class="connection rail-self-dot" id="rail-self-dot" data-state="offline" aria-hidden="true">
+            <span class="connection-dot" aria-hidden="true"></span>
+          </span>
+        </button>
+      </div>
+    </footer>
+
+    <dialog class="modal-dialog settings-dialog" id="settings-dialog">
+      <div class="modal-card">
+        <header class="modal-header">
+          <h2 class="modal-title" id="settings-title">Настройки</h2>
+          <button class="icon-button modal-close" id="settings-close-btn" type="button" aria-label="Закрыть"><svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg></button>
+        </header>
+
+        <section class="modal-section settings-section">
+          <h3 class="settings-heading" id="settings-mode-heading">Тема</h3>
+          <div class="segmented" id="mode-group" role="group" aria-labelledby="settings-mode-heading">
+            <button class="segmented-btn" data-mode="auto" type="button">Авто</button>
+            <button class="segmented-btn" data-mode="light" type="button">Светлая</button>
+            <button class="segmented-btn" data-mode="dark" type="button">Тёмная</button>
+          </div>
+          <h3 class="settings-heading" id="settings-scheme-heading">Цветовая схема</h3>
+          <div class="scheme-grid" id="scheme-group" role="group" aria-labelledby="settings-scheme-heading">
+            <button class="scheme-btn" data-scheme="paper" type="button">Paper</button>
+            <button class="scheme-btn" data-scheme="green" type="button">Green</button>
+            <button class="scheme-btn" data-scheme="amber" type="button">Amber</button>
+            <button class="scheme-btn" data-scheme="blue" type="button">Blue</button>
+            <button class="scheme-btn" data-scheme="matrix" type="button">Matrix</button>
+            <button class="scheme-btn" data-scheme="mono" type="button">Mono</button>
+          </div>
+          <h3 class="settings-heading" id="settings-font-heading">Шрифт</h3>
+          <div class="segmented" id="font-group" role="group" aria-labelledby="settings-font-heading">
+            <button class="segmented-btn font-btn" data-font="serif" type="button">Гарамон</button>
+            <button class="segmented-btn font-btn" data-font="mono" type="button">Терминал</button>
+            <button class="segmented-btn font-btn" data-font="sans" type="button">Гротеск</button>
+          </div>
+          <!-- «Обои переписки» (docs/archive/HANDOFF_WALLPAPERS.md §4): cards, not words.
+               Each preview carries the pattern and two painted bubbles,
+               because «точки» and «ромб» are the same three syllables to anyone
+               who has not seen them. The pattern rules on `.wallpaper-preview`
+               are the ones on `.transcript` — see app.css. The default (`aurora`,
+               since 1.128) comes first; the four Android shares follow. -->
+          <h3 class="settings-heading" id="settings-wallpaper-heading">Обои переписки</h3>
+          <div class="wallpaper-grid" id="wallpaper-group" role="group" aria-labelledby="settings-wallpaper-heading">
+            <button class="wallpaper-btn" data-wallpaper="aurora" type="button">
+              <span class="wallpaper-preview" data-wp="aurora" aria-hidden="true">
+                <span class="wallpaper-bubble wallpaper-bubble--peer"></span>
+                <span class="wallpaper-bubble wallpaper-bubble--own"></span>
+              </span>
+              <span class="wallpaper-label">Сияние</span>
+            </button>
+            <button class="wallpaper-btn" data-wallpaper="waves" type="button">
+              <span class="wallpaper-preview" data-wp="waves" aria-hidden="true">
+                <span class="wallpaper-bubble wallpaper-bubble--peer"></span>
+                <span class="wallpaper-bubble wallpaper-bubble--own"></span>
+              </span>
+              <span class="wallpaper-label">Волны</span>
+            </button>
+            <button class="wallpaper-btn" data-wallpaper="topo" type="button">
+              <span class="wallpaper-preview" data-wp="topo" aria-hidden="true">
+                <span class="wallpaper-bubble wallpaper-bubble--peer"></span>
+                <span class="wallpaper-bubble wallpaper-bubble--own"></span>
+              </span>
+              <span class="wallpaper-label">Рельеф</span>
+            </button>
+            <button class="wallpaper-btn" data-wallpaper="doodle" type="button">
+              <span class="wallpaper-preview" data-wp="doodle" aria-hidden="true">
+                <span class="wallpaper-bubble wallpaper-bubble--peer"></span>
+                <span class="wallpaper-bubble wallpaper-bubble--own"></span>
+              </span>
+              <span class="wallpaper-label">Зарисовки</span>
+            </button>
+            <button class="wallpaper-btn" data-wallpaper="none" type="button">
+              <span class="wallpaper-preview" data-wp="none" aria-hidden="true">
+                <span class="wallpaper-bubble wallpaper-bubble--peer"></span>
+                <span class="wallpaper-bubble wallpaper-bubble--own"></span>
+              </span>
+              <span class="wallpaper-label">Без узора</span>
+            </button>
+            <button class="wallpaper-btn" data-wallpaper="dots" type="button">
+              <span class="wallpaper-preview" data-wp="dots" aria-hidden="true">
+                <span class="wallpaper-bubble wallpaper-bubble--peer"></span>
+                <span class="wallpaper-bubble wallpaper-bubble--own"></span>
+              </span>
+              <span class="wallpaper-label">Точки</span>
+            </button>
+            <button class="wallpaper-btn" data-wallpaper="ruled" type="button">
+              <span class="wallpaper-preview" data-wp="ruled" aria-hidden="true">
+                <span class="wallpaper-bubble wallpaper-bubble--peer"></span>
+                <span class="wallpaper-bubble wallpaper-bubble--own"></span>
+              </span>
+              <span class="wallpaper-label">Линованная бумага</span>
+            </button>
+            <button class="wallpaper-btn" data-wallpaper="diamond" type="button">
+              <span class="wallpaper-preview" data-wp="diamond" aria-hidden="true">
+                <span class="wallpaper-bubble wallpaper-bubble--peer"></span>
+                <span class="wallpaper-bubble wallpaper-bubble--own"></span>
+              </span>
+              <span class="wallpaper-label">Ромб</span>
+            </button>
+          </div>
+          <h3 class="settings-heading" id="settings-round-heading">Скругление</h3>
+          <div class="segmented" id="round-group" role="group" aria-labelledby="settings-round-heading">
+            <button class="segmented-btn round-btn" data-round="sharp" type="button">Острые</button>
+            <button class="segmented-btn round-btn" data-round="soft" type="button">Мягкие</button>
+            <button class="segmented-btn round-btn" data-round="round" type="button">Круглые</button>
+          </div>
+          <label class="settings-toggle"><input type="checkbox" id="settings-borders"><span id="settings-borders-label">Обводки</span></label>
+          <label class="settings-toggle"><input type="checkbox" id="settings-depth"><span id="settings-depth-label">Объёмный дизайн</span></label>
+        </section>
+
+        <section class="modal-section settings-section">
+          <h3 class="settings-heading" id="settings-behaviour-heading">Поведение</h3>
+          <label class="settings-toggle"><input type="checkbox" id="settings-sound"><span id="settings-sound-label">Звуки</span></label>
+          <label class="settings-toggle"><input type="checkbox" id="settings-sound-send"><span id="settings-sound-send-label">Звук отправки</span></label>
+          <label class="settings-slider" for="settings-volume">
+            <span id="settings-volume-label">Громкость звуков</span>
+            <input type="range" id="settings-volume" min="0" max="100" step="5" value="100">
+          </label>
+          <div class="settings-row">
+            <input type="file" id="settings-sound-file" accept="audio/*" hidden>
+            <button class="settings-link-btn" id="settings-sound-pick-btn" type="button">Свой звук входящего</button>
+            <button class="settings-link-btn" id="settings-sound-reset-btn" type="button" hidden>Вернуть встроенный</button>
+            <span id="settings-sound-custom-name">Встроенный звук</span>
+          </div>
+          <p class="settings-note" id="settings-sound-error" role="alert" hidden></p>
+          <label class="settings-toggle"><input type="checkbox" id="settings-notify"><span id="settings-notify-label">Уведомления</span></label>
+          <label class="settings-toggle"><input type="checkbox" id="settings-typing"><span id="settings-typing-label">Показывать «печатает…»</span></label>
+          <label class="settings-toggle"><input type="checkbox" id="settings-holiday"><span id="settings-holiday-label">Праздничный логотип</span></label>
+          <label class="settings-toggle"><input type="checkbox" id="settings-link-preview"><span id="settings-link-preview-label">Предпросмотр ссылок</span></label>
+          <label class="settings-toggle"><input type="checkbox" id="settings-show-deleted"><span id="settings-show-deleted-label">Показывать удалённые сообщения</span></label>
+          <p class="settings-heading" id="settings-quick-reactions-label">Быстрые реакции</p>
+          <div class="quick-reactions quick-reactions--settings" id="settings-quick-reactions" role="group" aria-labelledby="settings-quick-reactions-label"></div>
+        </section>
+
+        <section class="modal-section settings-section">
+          <h3 class="settings-heading" id="settings-lang-heading">Язык</h3>
+          <div class="segmented lang-switcher" role="group" aria-labelledby="settings-lang-heading">
+            <button class="segmented-btn lang-btn" data-lang="en" type="button">EN</button>
+            <button class="segmented-btn lang-btn" data-lang="ru" type="button">RU</button>
+            <button class="segmented-btn lang-btn" data-lang="fr" type="button">FR</button>
+          </div>
+        </section>
+
+        <section class="modal-section settings-section">
+          <h3 class="settings-heading" id="settings-apps-heading">Приложения</h3>
+          <div class="settings-row">
+            <button class="settings-link-btn" id="settings-install-btn" type="button" hidden>Установить как приложение</button>
+            <a class="settings-link-btn" id="settings-apk-link" href="/tailchat/tailchat.apk" download>Android APK</a>
+          </div>
+          <p class="settings-note" id="settings-version">Tailchat</p>
+        </section>
+
+        <section class="modal-section settings-section" id="settings-e2ee-section" hidden>
+          <h3 class="settings-heading" id="settings-e2ee-heading">Шифрование</h3>
+          <div class="settings-row">
+            <button class="settings-link-btn" id="settings-backup-create-btn" type="button">Сделать бэкап ключей</button>
+            <button class="settings-link-btn" id="settings-backup-status-btn" type="button">Состояние бэкапа</button>
+            <button class="settings-link-btn" id="settings-backup-restore-btn" type="button">Восстановить из бэкапа</button>
+            <button class="settings-link-btn settings-danger" id="settings-keys-reset-btn" type="button">Сбросить ключи</button>
+          </div>
+        </section>
+
+        <section class="modal-section settings-section">
+          <h3 class="settings-heading" id="settings-account-heading">Аккаунт</h3>
+          <div class="settings-row">
+            <button class="settings-link-btn" id="settings-profile-btn" type="button">Профиль</button>
+            <button class="settings-link-btn settings-danger" id="logout-button" type="button">Выйти</button>
+          </div>
+        </section>
+      </div>
+    </dialog>
+
+    <dialog class="modal-dialog" id="invite-dialog">
+      <div class="modal-card">
+        <header class="modal-header">
+          <h2 class="modal-title" id="modal-title">Добавить друга</h2>
+          <button class="icon-button modal-close" id="invite-close-button" type="button" aria-label="Закрыть"><svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg></button>
+        </header>
+
+        <section class="modal-section">
+          <h3 id="friend-request-title">Добавить по @username</h3>
+          <p class="modal-hint" id="friend-request-hint">Укажите логин друга — он получит заявку от служебного аккаунта и сможет её принять.</p>
+          <form class="invite-form" id="friend-request-form">
+            <div class="invite-box">
+              <input id="friend-request-input" type="text" maxlength="200" placeholder="@username друга" autocomplete="off" spellcheck="false" required>
+              <button class="primary-button" id="friend-request-button" type="submit">Добавить</button>
+            </div>
+            <p class="modal-status" id="friend-request-status" role="status"></p>
+          </form>
+        </section>
+
+        <hr class="modal-divider">
+
+        <section class="modal-section">
+          <h3 id="my-invite-title">Мой инвайт-код</h3>
+          <p class="modal-hint" id="my-invite-hint">Одноразовый код для передачи другу. Создание нового кода аннулирует предыдущий.</p>
+          <div class="invite-box">
+            <input id="my-invite-input" type="text" readonly placeholder="Нажмите «Создать»">
+            <button class="primary-button" id="generate-invite-button" type="button">Создать</button>
+            <button class="quiet-button" id="copy-invite-button" type="button" disabled>Копировать</button>
+          </div>
+          <p class="modal-status" id="my-invite-status" role="status"></p>
+        </section>
+
+        <hr class="modal-divider">
+
+        <section class="modal-section">
+          <h3 id="accept-invite-title">Ввести инвайт друга</h3>
+          <p class="modal-hint" id="accept-invite-hint">Вставьте 64-значный hex-код, полученный от друга.</p>
+          <form class="invite-form" id="accept-invite-form">
+            <div class="invite-box">
+              <input id="accept-invite-input" type="text" maxlength="200" placeholder="Код приглашения" autocomplete="off" spellcheck="false" required>
+              <button class="primary-button" id="accept-invite-button" type="submit">Добавить</button>
+            </div>
+            <p class="modal-status" id="accept-invite-status" role="status"></p>
+          </form>
+        </section>
+      </div>
+    </dialog>
+
+    <dialog class="lightbox" id="lightbox" tabindex="-1" aria-label="Изображение">
+      <div class="lightbox-stage" id="lightbox-stage">
+        <img class="lightbox-image" id="lightbox-image" alt="" draggable="false">
+      </div>
+      <p class="lightbox-counter" id="lightbox-counter" hidden></p>
+      <div class="lightbox-controls">
+        <a class="lightbox-control" id="lightbox-save" download aria-label="Сохранить изображение"><svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg></a>
+        <button class="lightbox-control" id="lightbox-close" type="button" aria-label="Закрыть"><svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg></button>
+      </div>
+    </dialog>
+
+    <dialog class="image-sheet" id="image-sheet" tabindex="-1" aria-label="Отправка изображения">
+      <div class="image-sheet-stage" id="image-sheet-stage">
+        <div class="image-sheet-frame" id="image-sheet-frame">
+          <canvas class="image-sheet-canvas" id="image-sheet-canvas"></canvas>
+          <div class="image-sheet-crop" id="image-sheet-crop" hidden>
+            <span class="image-sheet-handle" data-handle="nw"></span>
+            <span class="image-sheet-handle" data-handle="n"></span>
+            <span class="image-sheet-handle" data-handle="ne"></span>
+            <span class="image-sheet-handle" data-handle="e"></span>
+            <span class="image-sheet-handle" data-handle="se"></span>
+            <span class="image-sheet-handle" data-handle="s"></span>
+            <span class="image-sheet-handle" data-handle="sw"></span>
+            <span class="image-sheet-handle" data-handle="w"></span>
+          </div>
+        </div>
+      </div>
+      <div class="image-sheet-panel">
+        <div class="image-sheet-ratios" id="image-sheet-ratios" role="group" aria-label="Пропорции" hidden>
+          <button class="image-sheet-chip" type="button" data-ratio="free" aria-pressed="true" id="image-sheet-free">Свободно</button>
+          <button class="image-sheet-chip" type="button" data-ratio="1:1" aria-pressed="false">1:1</button>
+          <button class="image-sheet-chip" type="button" data-ratio="4:3" aria-pressed="false">4:3</button>
+          <button class="image-sheet-chip" type="button" data-ratio="16:9" aria-pressed="false">16:9</button>
+          <button class="image-sheet-chip" type="button" id="image-sheet-reset">Сбросить</button>
+        </div>
+        <div class="image-sheet-bar">
+          <button class="image-sheet-action" id="image-sheet-cancel" type="button">Отмена</button>
+          <button class="image-sheet-action" id="image-sheet-crop-toggle" type="button" aria-pressed="false">Обрезать</button>
+          <button class="image-sheet-action" id="image-sheet-rotate" type="button">Повернуть 90°</button>
+          <textarea class="image-sheet-caption" id="image-sheet-caption" rows="1" maxlength="4000" placeholder="Подпись" aria-label="Подпись"></textarea>
+          <button class="primary-button image-sheet-send" id="image-sheet-send" type="button">Отправить</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal-dialog profile-dialog" id="profile-dialog">
+      <form class="modal-card profile-card" id="profile-form">
+        <header class="modal-header">
+          <div>
+            <p class="eyebrow" id="profile-eyebrow">АККАУНТ</p>
+            <h2 class="modal-title" id="profile-title">Профиль</h2>
+          </div>
+          <button class="icon-button modal-close" id="profile-close-button" type="button" aria-label="Закрыть"><svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg></button>
+        </header>
+
+        <div class="field">
+          <label for="profile-login" id="profile-login-label">Логин</label>
+          <input id="profile-login" type="text" readonly>
+          <p class="field-hint" id="profile-login-hint">Постоянный идентификатор аккаунта.</p>
+        </div>
+        <div class="field">
+          <label for="profile-name" id="profile-name-label">Отображаемое имя</label>
+          <input id="profile-name" type="text" maxlength="24" autocomplete="nickname" required>
+        </div>
+
+        <div class="profile-password-block">
+          <h3 id="profile-password-title">Сменить пароль</h3>
+          <p class="modal-hint" id="profile-password-hint">Оставьте поля пустыми, если пароль менять не нужно.</p>
+          <div class="field">
+            <label for="profile-current-password" id="profile-current-password-label">Текущий пароль</label>
+            <input id="profile-current-password" type="password" maxlength="200" autocomplete="current-password">
+          </div>
+          <div class="field">
+            <label for="profile-new-password" id="profile-new-password-label">Новый пароль</label>
+            <input id="profile-new-password" type="password" maxlength="200" autocomplete="new-password">
+          </div>
+          <div class="field">
+            <label for="profile-confirm-password" id="profile-confirm-password-label">Повторите новый пароль</label>
+            <input id="profile-confirm-password" type="password" maxlength="200" autocomplete="new-password">
+          </div>
+        </div>
+
+        <div class="profile-password-block" id="profile-extra-password-block">
+          <h3 id="profile-extra-password-title">Дополнительный пароль</h3>
+          <p class="modal-hint" id="profile-extra-password-hint">По желанию. Если включён, вход в аккаунт потребует его вместе с обычным паролем.</p>
+          <label class="settings-toggle"><input type="checkbox" id="profile-extra-password-enabled"><span id="profile-extra-password-enabled-label">Использовать дополнительный пароль</span></label>
+          <div class="field" id="profile-extra-password-row" hidden>
+            <label for="profile-extra-password" id="profile-extra-password-label">Дополнительный пароль</label>
+            <input id="profile-extra-password" type="password" maxlength="200" autocomplete="new-password">
+          </div>
+          <div class="field" id="profile-extra-password-confirm-row" hidden>
+            <label for="profile-extra-password-confirm" id="profile-extra-password-confirm-label">Повторите дополнительный пароль</label>
+            <input id="profile-extra-password-confirm" type="password" maxlength="200" autocomplete="new-password">
+          </div>
+          <p class="field-hint" id="profile-extra-password-note">Чтобы включить, отключить или сменить дополнительный пароль, укажите текущий (обычный) пароль выше.</p>
+        </div>
+
+        <p class="modal-status" id="profile-status" role="status"></p>
+        <div class="profile-actions">
+          <button class="quiet-button" id="profile-cancel-button" type="button">Отмена</button>
+          <button class="primary-button" id="profile-save-button" type="submit">Сохранить изменения</button>
+        </div>
+      </form>
+    </dialog>
+
+
+    <dialog class="modal-dialog" id="pwa-ios-dialog">
+      <div class="modal-card">
+        <header class="modal-header">
+          <h2 class="modal-title" id="pwa-ios-title">Установка на iPhone / iPad</h2>
+          <button class="icon-button modal-close" id="pwa-ios-close-btn" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg></button>
+        </header>
+        <section class="modal-section" style="line-height: 1.6;">
+          <p id="pwa-ios-desc">Чтобы установить Tailchat как полноэкранное веб-приложение на iOS:</p>
+          <ol style="margin: 0.8rem 0; padding-left: 1.4rem;" id="pwa-ios-steps">
+            <li>Нажмите кнопку <strong>«Поделиться»</strong> (<span style="font-size: 1.1rem;">⎋</span> или <span style="font-size: 1.1rem;">📤</span>) в панели Safari.</li>
+            <li>Прокрутите список действий и выберите <strong>«На экран «Домой»»</strong> (<span style="font-size: 1.1rem;">➕</span> <em>Add to Home Screen</em>).</li>
+            <li>Нажмите <strong>«Добавить»</strong> в правом верхнем углу.</li>
+          </ol>
+          <button class="primary-button" id="pwa-ios-ack-btn" type="button" style="width: 100%; margin-top: 0.5rem;">Понятно</button>
+        </section>
+      </div>
+    </dialog>
+  </div>
+</body>
+</html>

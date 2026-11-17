@@ -1,0 +1,60 @@
+{
+  "name": "tailchat",
+  "version": "1.149",
+  "description": "End-to-end encrypted messenger: a terminal client, a web/PWA client and an Android app, peer-to-peer over Tailscale/LAN or through a self-hosted cloud server",
+  "keywords": [
+    "chat",
+    "messenger",
+    "e2ee",
+    "end-to-end-encryption",
+    "terminal",
+    "tailscale",
+    "p2p",
+    "pwa",
+    "self-hosted"
+  ],
+  "homepage": "https://github.com/repentandliveholy/tailchat-oss#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/repentandliveholy/tailchat-oss.git"
+  },
+  "bugs": {
+    "url": "https://github.com/repentandliveholy/tailchat-oss/issues"
+  },
+  "author": "repentandliveholy",
+  "type": "module",
+  "bin": {
+    "tailchat": "bin/tailchat.js",
+    "tc": "bin/tailchat.js",
+    "tailchat-sh": "bin/tailchat"
+  },
+  "scripts": {
+    "build:core": "node bin/build-core.js",
+    "build:web-core": "node bin/build-web-core.js",
+    "test": "node --test",
+    "start": "node src/cli.js",
+    "start:gateway": "node bin/gateway-server.js",
+    "start:cloud": "node bin/cloud-server.js",
+    "deploy": "node bin/production-deploy.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "@tailchat/reminder-core": "file:packages/reminder-core",
+    "blessed": "^0.1.81",
+    "firebase-admin": "^14.4.0",
+    "node-notifier": "10.0.1",
+    "web-push": "^3.6.7",
+    "ws": "8.21.3"
+  },
+  "overrides": {
+    "node-notifier": {
+      "uuid": "11.1.1"
+    }
+  },
+  "license": "MIT"
+}

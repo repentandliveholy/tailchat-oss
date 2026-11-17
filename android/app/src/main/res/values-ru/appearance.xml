@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_outlines">Обводки</string>
+    <string name="settings_outlines_hint">Тонкая линия вокруг пузырей, карточек, полей и аватаров; раскладка не сдвигается</string>
+    <string name="settings_depth">Объёмный дизайн</string>
+    <string name="settings_depth_hint">Тени, блики и свечение у панелей, карточек и пузырей; выкл — плоский вид</string>
+    <string name="settings_link_previews">Предпросмотр ссылок</string>
+    <string name="settings_link_previews_hint">Карточка с заголовком и картинкой под сообщением со ссылкой</string>
+    <string name="settings_behavior">Сообщения</string>
+</resources>

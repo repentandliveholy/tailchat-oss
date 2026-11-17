@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Foreground raster is rendered straight from the shared logo master
+     (`assets/logo/tailchat-foreground.svg` — see docs/archive/HANDOFF_LOGO.md), which
+     already bakes in the 108dp canvas / 66% safe-zone scale. Regenerate the
+     same way (`rsvg-convert -w <density-px> -h <density-px>`) if that master
+     ever changes; hand-editing the PNGs directly will drift. -->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background" />
+    <foreground android:drawable="@mipmap/ic_launcher_foreground" />
+    <!-- A true alpha silhouette of just the mark (ears/eyes/nose/mouth,
+         no background panel, no TC/cross — the monochrome master never had
+         them), not the full-colour foreground reused verbatim: rendered
+         straight from `assets/logo/tailchat-monochrome.svg`, which is
+         already white-on-transparent and pre-scaled to the same safe zone.
+         Android tints this single-colour layer for "themed icons" (Material
+         You, and any launcher that recolours icons for its own light/dark
+         mode); reusing the colour asset here left every non-mark pixel
+         opaque, so the themed icon rendered as a solid tinted blob with no
+         cat visible. -->
+    <monochrome android:drawable="@mipmap/ic_launcher_monochrome" />
+</adaptive-icon>

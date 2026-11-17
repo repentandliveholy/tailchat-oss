@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Debug-only: lets the emulator reach an isolated host-side HTTP server.
+         Release builds keep Android's cleartext block for passwords and tokens. -->
+    <application android:usesCleartextTraffic="true" />
+</manifest>

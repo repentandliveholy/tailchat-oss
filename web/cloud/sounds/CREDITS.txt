@@ -1,0 +1,20 @@
+Message cues (received.mp3, sent.mp3, wake.mp3)
+
+Source : Mixkit Free Sound Effects — https://mixkit.co/free-sound-effects/
+  received : "Magic Marimba"  (notification category) — first 1.8 s of the
+             phrase with a fade-out, so an incoming pop is short and warm
+             while wake keeps the full melody
+  sent     : "Typewriter Soft Click" (click category)
+  wake     : "Magic Marimba"  (notification category) — full phrase
+License : Mixkit License (free sound effects) — https://mixkit.co/license/#sfxFree
+         Free for commercial and personal use, no attribution required.
+         Embedded here as UI cues inside the product; not redistributed as
+         standalone sound effects. Attribution kept for provenance.
+Processing: levels matched so the app's per-cue gain multipliers (SAMPLE_GAIN
+         in web/cloud/app.js) reproduce the intended mix; lossless sources
+         re-encoded as mp3 192 kbps, 44.1 kHz stereo. Files renamed to the cue
+         names in web/cloud/app.js (SOUND_FILES); content unmodified otherwise.
+History: v1.10 used "Bubble Pop Up Alert Notification" (2357) for received;
+         replaced in v1.11 after it was judged harsh. Full provenance and the
+         audition pool live in docs/message-sounds.md and
+         ~/.tailchat/sounds-candidates/.

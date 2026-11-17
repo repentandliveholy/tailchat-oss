@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light Paper "plate" background from assets/logo/tailchat-light.svg.
+         The adaptive launcher icon deliberately stays light regardless of
+         the app theme, matching the web/PWA icon. -->
+    <color name="ic_launcher_background">#F7F2E9</color>
+    <!-- Same value as `signal`/`colorScheme.primary` in Theme.kt's
+         LightGreenTokens — the accent already tuned for contrast against a
+         white surface, reused here so the splash icon (drawn before Compose
+         exists, so it cannot read the theme) still matches it. -->
+    <color name="splash_icon_tint">#1A7F37</color>
+    <color name="splash_background">#F6F8FA</color>
+</resources>

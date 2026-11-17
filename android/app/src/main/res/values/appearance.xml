@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_outlines">Outlines</string>
+    <string name="settings_outlines_hint">A hairline around bubbles, cards, fields and avatars; the layout does not move</string>
+    <string name="settings_depth">Depth</string>
+    <string name="settings_depth_hint">Shadows, light and glow on bars, cards and bubbles; off is the flat look</string>
+    <string name="settings_link_previews">Link previews</string>
+    <string name="settings_link_previews_hint">A card with the title and picture under a message that has a link</string>
+    <string name="settings_behavior">Messages</string>
+</resources>

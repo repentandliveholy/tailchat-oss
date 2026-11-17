@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="image_viewer_open">Ouvrir l’image</string>
+    <string name="image_viewer_close">Fermer</string>
+    <string name="image_viewer_save">Enregistrer l’image</string>
+    <string name="image_viewer_saved">Enregistré dans %1$s</string>
+    <string name="image_viewer_save_failed">Impossible d’enregistrer l’image.</string>
+    <string name="image_viewer_counter">%1$d / %2$d</string>
+    <string name="image_viewer_next">Image suivante</string>
+    <string name="image_viewer_previous">Image précédente</string>
+    <string name="image_viewer_failed">Impossible d’afficher l’image.</string>
+</resources>

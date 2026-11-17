@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="emoji_search">Поиск эмодзи</string>
+    <string name="emoji_nothing">Ничего не найдено</string>
+    <string name="emoji_quick_settings">Быстрые реакции</string>
+    <string name="emoji_quick_slot">Реакция %1$d: %2$s</string>
+    <string name="emoji_more">Все эмодзи</string>
+    <string name="message_edited_at">Изменено: %1$s</string>
+    <string name="message_select">Выбрать</string>
+    <string-array name="emoji_categories">
+        <item>Недавние</item>
+        <item>Смайлы</item>
+        <item>Люди и жесты</item>
+        <item>Животные и природа</item>
+        <item>Еда</item>
+        <item>Активности</item>
+        <item>Путешествия</item>
+        <item>Предметы</item>
+        <item>Символы</item>
+        <item>Флаги</item>
+    </string-array>
+</resources>

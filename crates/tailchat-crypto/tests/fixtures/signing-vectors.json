@@ -1,0 +1,49 @@
+{
+  "_about": "Ed25519 over canonicalJson (src/identity.js) of the object minus top-level signatures/unsigned; seed = bytes 0..31; produced by node:crypto 2026-11-05",
+  "seed": "AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8",
+  "ed25519": "A6EHv/POEL4dcN0Y50vAmWfk1jCbpQ1fHdyGZBJVMbg",
+  "generic": {
+    "value": {
+      "Z": 0,
+      "a": {},
+      "é": "x",
+      "｡": 1,
+      "😀": [
+        true,
+        null,
+        -9007199254740991,
+        9007199254740991,
+        "é😀\n\u0001\u001f\"\\/ \b\f\r\t"
+      ],
+      "b": {
+        "y": [],
+        "x": "q"
+      },
+      "signatures": {
+        "ignored": true
+      },
+      "unsigned": {
+        "also": "ignored"
+      }
+    },
+    "canonical": "{\"Z\":0,\"a\":{},\"b\":{\"x\":\"q\",\"y\":[]},\"é\":\"x\",\"😀\":[true,null,-9007199254740991,9007199254740991,\"é😀\\n\\u0001\\u001f\\\"\\\\/ \\b\\f\\r\\t\"],\"｡\":1}",
+    "signature": "vMlSaPFEUh/zPOmOViTiVgx10US4Wmk2JRkrp4bw9gOG7C0NxR4wnpesPTh0Yx6KVbDpuEIEie2ITF2Z+95sAg"
+  },
+  "deviceKeys": {
+    "value": {
+      "login": "alice",
+      "deviceId": "AAAAAAAAAAAAAAAA",
+      "kind": "client",
+      "keys": {
+        "curve25519": "ICEiIyQlJicoKSorLC0uLzAxMjM0NTY3ODk6Ozw9Pj8",
+        "ed25519": "A6EHv/POEL4dcN0Y50vAmWfk1jCbpQ1fHdyGZBJVMbg"
+      },
+      "signatures": {
+        "alice": {
+          "ed25519:AAAAAAAAAAAAAAAA": "a3ph47VTLfRJpWWQUEbMk90CnKQdaOEYRDCI1QmDKHvZWymw6/5St7A2PXvCNnQmmGcP+nD3e+YxVtvA3QLbCQ"
+        }
+      }
+    },
+    "canonical": "{\"deviceId\":\"AAAAAAAAAAAAAAAA\",\"keys\":{\"curve25519\":\"ICEiIyQlJicoKSorLC0uLzAxMjM0NTY3ODk6Ozw9Pj8\",\"ed25519\":\"A6EHv/POEL4dcN0Y50vAmWfk1jCbpQ1fHdyGZBJVMbg\"},\"kind\":\"client\",\"login\":\"alice\"}"
+  }
+}

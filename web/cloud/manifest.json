@@ -1,0 +1,57 @@
+{
+  "name": "Tailchat",
+  "short_name": "Tailchat",
+  "description": "End-to-end encrypted messenger for the terminal, the browser and Android",
+  "id": "/tailchat/",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#070A0E",
+  "theme_color": "#070A0E",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icons/icon-192.png?v=1.116",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png?v=1.116",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/maskable-512.png?v=1.116",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon.svg?v=1.116",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": [
+    "social",
+    "utilities",
+    "productivity"
+  ],
+  "shortcuts": [
+    {
+      "name": "Open Chat",
+      "short_name": "Chat",
+      "description": "Open Tailchat Messenger",
+      "url": "./",
+      "icons": [
+        {
+          "src": "icons/icon-192.png?v=1.116",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

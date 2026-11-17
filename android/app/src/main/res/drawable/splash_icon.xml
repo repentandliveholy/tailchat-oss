@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The cat mark alone, no background panel — drawn for the platform
+     SplashScreen API rather than reusing the launcher's foreground asset,
+     which bakes its own black panel into the pixels (see
+     Theme.Tailchat.Splash in themes.xml and MainActivity.installSplashScreen).
+     Traced by hand from the same source paths as assets/logo/tailchat-light.svg's
+     ("Outer Cat Silhouette" group, now the shared logo master shared with
+     web/cloud/icons/icon.svg), cropped tight to just the face (the "TC"
+     lettering and the corner accent are the launcher icon's business, not a
+     screen that is gone in a few hundred milliseconds) and centred in a
+     400x400 viewport via a flat -56,-6 offset (no rescale — stroke widths
+     match the 512-unit master 1:1). Colour comes from @color/splash_icon_tint,
+     which values/values-night pick separately — the same "dark accent for
+     black, light accent for white" split Theme.kt's own token pairs use — so
+     this reads on whichever theme's splash background is showing. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp"
+    android:height="400dp"
+    android:viewportWidth="640"
+    android:viewportHeight="640">
+    <group
+        android:translateX="120"
+        android:translateY="120">
+    <path
+        android:pathData="M 64,194 L 104,78 L 160,154 Z"
+        android:strokeColor="@color/splash_icon_tint"
+        android:strokeWidth="12"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+    <!-- Right ear -->
+    <path
+        android:pathData="M 336,194 L 296,78 L 240,154 Z"
+        android:strokeColor="@color/splash_icon_tint"
+        android:strokeWidth="12"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+    <!-- Head outline / cheeks -->
+    <path
+        android:pathData="M 64,194 C 44,234 52,284 92,306 C 124,322 276,322 308,306 C 348,284 356,234 336,194 C 314,160 274,160 200,164 C 126,160 86,160 64,194 Z"
+        android:strokeColor="@color/splash_icon_tint"
+        android:strokeWidth="12"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+    <!-- Left eye -->
+    <path
+        android:pathData="M 112,230 A 28,32 0 1,0 168,230 A 28,32 0 1,0 112,230 Z"
+        android:strokeColor="@color/splash_icon_tint"
+        android:strokeWidth="6"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M 122,230 A 18,18 0 1,0 158,230 A 18,18 0 1,0 122,230 Z"
+        android:fillColor="@color/splash_icon_tint" />
+    <!-- Right eye -->
+    <path
+        android:pathData="M 232,230 A 28,32 0 1,0 288,230 A 28,32 0 1,0 232,230 Z"
+        android:strokeColor="@color/splash_icon_tint"
+        android:strokeWidth="6"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M 242,230 A 18,18 0 1,0 278,230 A 18,18 0 1,0 242,230 Z"
+        android:fillColor="@color/splash_icon_tint" />
+    <!-- Nose -->
+    <path
+        android:pathData="M 200,254 L 192,246 L 208,246 Z"
+        android:fillColor="@color/splash_icon_tint" />
+    <!-- Mouth -->
+    <path
+        android:pathData="M 188,262 C 192,270 200,270 200,262 C 200,270 208,270 212,262"
+        android:strokeColor="@color/splash_icon_tint"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+    <!-- Whiskers: three per side, fanned; outer pair from the previous
+         trace, middle line added between them to match the master's fan. -->
+    <path android:pathData="M 100,242 L 24,226" android:strokeColor="@color/splash_icon_tint" android:strokeWidth="5" android:strokeLineCap="round" android:fillColor="#00000000" />
+    <path android:pathData="M 98,252 L 20,248" android:strokeColor="@color/splash_icon_tint" android:strokeWidth="5" android:strokeLineCap="round" android:fillColor="#00000000" />
+    <path android:pathData="M 96,262 L 18,270" android:strokeColor="@color/splash_icon_tint" android:strokeWidth="5" android:strokeLineCap="round" android:fillColor="#00000000" />
+    <path android:pathData="M 300,242 L 376,226" android:strokeColor="@color/splash_icon_tint" android:strokeWidth="5" android:strokeLineCap="round" android:fillColor="#00000000" />
+    <path android:pathData="M 302,252 L 380,248" android:strokeColor="@color/splash_icon_tint" android:strokeWidth="5" android:strokeLineCap="round" android:fillColor="#00000000" />
+    <path android:pathData="M 304,262 L 382,270" android:strokeColor="@color/splash_icon_tint" android:strokeWidth="5" android:strokeLineCap="round" android:fillColor="#00000000" />
+    </group>
+</vector>

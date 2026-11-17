@@ -1,0 +1,21 @@
+[package]
+name = "tailchat-core"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+# End-to-end encryption (stage 6). No vodozemac type crosses the core's API.
+tailchat-crypto = { path = "../tailchat-crypto" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# The picture bytes inside an encrypted message: standard padded base64 that
+# the `dataUrl` form every client draws is made of (spec E2EE §4.3).
+base64 = "0.22"
+thiserror = "2"
+zeroize = "1"

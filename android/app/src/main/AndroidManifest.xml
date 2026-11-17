@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <!-- Voice notes: MediaRecorder runs inside ServiceCloudController, which is owned
+         by ChatService (a running foreground service) rather than the Activity — API 34
+         requires this permission plus the matching foregroundServiceType below for a
+         foreground service's process to touch the microphone at all. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- Asked once, interactively, so the foreground channel and its cloud
+         socket survive OEM battery managers that otherwise kill it hours
+         after the screen last turned on — see RequestBatteryExemptionOnce. -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <!-- Restarts the channel after a reboot or an app update — see
+         BootReceiver for why a live-app reconnect fix alone can't cover this. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- Voice calls (docs/specs/2026-09-15-android-calls-plan.md §4.2). -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- The self-update flow (AppUpdateApi/installApk) is a sideloaded
+         install, not a Play Store one: without this permission Android
+         silently refuses the install intent instead of installing. -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!-- «Take photo» in the attach menu delegates to the system camera app
+         via an implicit ACTION_IMAGE_CAPTURE intent (ActivityResultContracts
+         .TakePicture()) — this app never touches the sensor itself, so no
+         CAMERA permission is declared. `required="false"` keeps the app
+         installable on a camera-less device; the attach menu still works
+         there for gallery/file, just not this one entry. -->
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Tailchat"
+        android:enableOnBackInvokedCallback="true"
+        tools:targetApi="34">
+
+        <!-- singleTop, never singleTask: a singleTask activity counts as
+             launching into another task, so every startActivityForResult from it
+             comes straight back CANCELED — which silently broke picking a file
+             to send. singleTop is all this needs: there is one activity, and a
+             notification tap must not stack a second copy of it. -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Tailchat.Splash"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Full-screen intent target for an incoming call — see
+             CallNotifications, and §4.2 for why this can't be a route on
+             MainActivity (singleTop, no showWhenLocked/turnScreenOn). -->
+        <activity
+            android:name=".call.CallActivity"
+            android:exported="false"
+            android:launchMode="singleInstance"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.Tailchat" />
+
+        <!-- The chat is a listening socket: it has to outlive the screen going
+             off, and none of the typed foreground-service categories describe
+             "hold a peer-to-peer channel open", so specialUse states that
+             plainly instead of borrowing a category that would also impose a
+             timeout the conversation would silently die at. -->
+        <service
+            android:name=".ChatService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse|microphone">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="peer-to-peer chat channel over a Tailscale tailnet" />
+        </service>
+
+        <!-- A live call's microphone. Android silences the capture of a
+             process that is neither visible nor holding a `microphone`
+             foreground service, and ChatService's single startForeground is
+             typed specialUse for the chat channel — so a call whose screen
+             went dark at an ear was sending zeroes with nothing saying so.
+             See CallService for the full account; §4.2 of the calls plan
+             prescribed this component and the implementation had deferred it. -->
+        <service
+            android:name=".call.CallService"
+            android:exported="false"
+            android:foregroundServiceType="microphone" />
+
+        <!-- FCM wake service: android:exported must be true for the system
+             process to deliver MESSAGING_EVENT to it, but the intent-filter's
+             action is protected — only the platform can send it, so this is
+             not reachable by another app despite being exported. -->
+        <service
+            android:name=".cloud.TailchatFirebaseMessagingService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- Protected system broadcasts (BOOT_COMPLETED is signature-guarded;
+             MY_PACKAGE_REPLACED is self-targeted), so exported=true here
+             cannot be spoofed by another app despite targetSdk 34 requiring
+             the attribute to be explicit. -->
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Only this app ever sends its action, and the alarm PendingIntent is
+             delivered to the component by name, so it needs no export. -->
+        <receiver
+            android:name=".WatchdogReceiver"
+            android:exported="false"
+            android:enabled="true" />
+
+        <!-- External cameras receive only an explicit, temporary grant to one
+             in-memory capture URI. Completed images are encrypted before storage. -->
+        <provider
+            android:name=".SecureCameraProvider"
+            android:authorities="${applicationId}.camera-secure"
+            android:exported="false"
+            android:grantUriPermissions="true" />
+
+        <!-- Hands the downloaded update APK (app-private cache) to the system
+             package installer without exposing a raw file:// path — required
+             since Android N; installApk() resolves its content:// URI through
+             this authority. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+</manifest>

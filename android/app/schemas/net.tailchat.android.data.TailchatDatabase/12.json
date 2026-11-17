@@ -1,0 +1,653 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 12,
+    "identityHash": "81e52bb59f9436db6c59b4f5fd2d42ac",
+    "entities": [
+      {
+        "tableName": "accounts",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountKey` TEXT NOT NULL, `server` TEXT NOT NULL, `login` TEXT NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY(`accountKey`))",
+        "fields": [
+          {
+            "fieldPath": "accountKey",
+            "columnName": "accountKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "server",
+            "columnName": "server",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "login",
+            "columnName": "login",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "accountKey"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "conversations",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountKey` TEXT NOT NULL, `peer` TEXT NOT NULL, `name` TEXT NOT NULL, `self` INTEGER NOT NULL, `previewFrom` TEXT, `previewText` TEXT, `previewMedia` TEXT, `previewTs` INTEGER NOT NULL, `unread` INTEGER NOT NULL, `readWatermarkTs` INTEGER NOT NULL, `peerReadTs` INTEGER NOT NULL, `online` INTEGER NOT NULL, `lastSeen` INTEGER, `historySeeded` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `official` INTEGER NOT NULL, `blocked` INTEGER NOT NULL, `bot` INTEGER NOT NULL, `alias` TEXT, `backfillJson` TEXT, `peerReadAt` INTEGER NOT NULL, `peerReadVia` TEXT NOT NULL, `peerDeliveredTs` INTEGER NOT NULL, PRIMARY KEY(`accountKey`, `peer`))",
+        "fields": [
+          {
+            "fieldPath": "accountKey",
+            "columnName": "accountKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "peer",
+            "columnName": "peer",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "self",
+            "columnName": "self",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "previewFrom",
+            "columnName": "previewFrom",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "previewText",
+            "columnName": "previewText",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "previewMedia",
+            "columnName": "previewMedia",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "previewTs",
+            "columnName": "previewTs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unread",
+            "columnName": "unread",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "readWatermarkTs",
+            "columnName": "readWatermarkTs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "peerReadTs",
+            "columnName": "peerReadTs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "online",
+            "columnName": "online",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastSeen",
+            "columnName": "lastSeen",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "historySeeded",
+            "columnName": "historySeeded",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "official",
+            "columnName": "official",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "blocked",
+            "columnName": "blocked",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bot",
+            "columnName": "bot",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "alias",
+            "columnName": "alias",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "backfillJson",
+            "columnName": "backfillJson",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "peerReadAt",
+            "columnName": "peerReadAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "peerReadVia",
+            "columnName": "peerReadVia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "peerDeliveredTs",
+            "columnName": "peerDeliveredTs",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "accountKey",
+            "peer"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_conversations_accountKey_previewTs",
+            "unique": false,
+            "columnNames": [
+              "accountKey",
+              "previewTs"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_conversations_accountKey_previewTs` ON `${TABLE_NAME}` (`accountKey`, `previewTs`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "messages",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountKey` TEXT NOT NULL, `peer` TEXT NOT NULL, `id` TEXT NOT NULL, `text` TEXT NOT NULL, `ts` INTEGER NOT NULL, `author` TEXT NOT NULL, `mine` INTEGER NOT NULL, `delivery` INTEGER NOT NULL, `system` INTEGER NOT NULL, `kind` TEXT NOT NULL, `imageDataUrl` TEXT, `imageWidth` INTEGER, `imageHeight` INTEGER, `voiceDataUrl` TEXT, `voiceDurationSec` INTEGER, `reactionsJson` TEXT, `replyJson` TEXT, `forwardJson` TEXT, `editedAt` INTEGER, `deletedAt` INTEGER, `serverSeq` INTEGER, `callOutcome` TEXT, `callDurationSec` INTEGER, `buttonsJson` TEXT, PRIMARY KEY(`accountKey`, `peer`, `id`))",
+        "fields": [
+          {
+            "fieldPath": "accountKey",
+            "columnName": "accountKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "peer",
+            "columnName": "peer",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ts",
+            "columnName": "ts",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "author",
+            "columnName": "author",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mine",
+            "columnName": "mine",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "delivery",
+            "columnName": "delivery",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "system",
+            "columnName": "system",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kind",
+            "columnName": "kind",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageDataUrl",
+            "columnName": "imageDataUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "imageWidth",
+            "columnName": "imageWidth",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "imageHeight",
+            "columnName": "imageHeight",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voiceDataUrl",
+            "columnName": "voiceDataUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voiceDurationSec",
+            "columnName": "voiceDurationSec",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "reactionsJson",
+            "columnName": "reactionsJson",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "replyJson",
+            "columnName": "replyJson",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "forwardJson",
+            "columnName": "forwardJson",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "editedAt",
+            "columnName": "editedAt",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "deletedAt",
+            "columnName": "deletedAt",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "serverSeq",
+            "columnName": "serverSeq",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "callOutcome",
+            "columnName": "callOutcome",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "callDurationSec",
+            "columnName": "callDurationSec",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "buttonsJson",
+            "columnName": "buttonsJson",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "accountKey",
+            "peer",
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_messages_accountKey_peer_ts",
+            "unique": false,
+            "columnNames": [
+              "accountKey",
+              "peer",
+              "ts"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_messages_accountKey_peer_ts` ON `${TABLE_NAME}` (`accountKey`, `peer`, `ts`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "pending_ops",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`opId` TEXT NOT NULL, `accountKey` TEXT NOT NULL, `peer` TEXT NOT NULL, `kind` TEXT NOT NULL, `messageId` TEXT, `payloadJson` TEXT NOT NULL, `attempts` INTEGER NOT NULL, `nextAttemptAt` INTEGER NOT NULL, `lastError` TEXT, `errorKind` INTEGER NOT NULL, `leaseOwner` TEXT, `leaseUntil` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, PRIMARY KEY(`opId`))",
+        "fields": [
+          {
+            "fieldPath": "opId",
+            "columnName": "opId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountKey",
+            "columnName": "accountKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "peer",
+            "columnName": "peer",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kind",
+            "columnName": "kind",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "messageId",
+            "columnName": "messageId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "payloadJson",
+            "columnName": "payloadJson",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "attempts",
+            "columnName": "attempts",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nextAttemptAt",
+            "columnName": "nextAttemptAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastError",
+            "columnName": "lastError",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "errorKind",
+            "columnName": "errorKind",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "leaseOwner",
+            "columnName": "leaseOwner",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "leaseUntil",
+            "columnName": "leaseUntil",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "opId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_pending_ops_accountKey_nextAttemptAt",
+            "unique": false,
+            "columnNames": [
+              "accountKey",
+              "nextAttemptAt"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_pending_ops_accountKey_nextAttemptAt` ON `${TABLE_NAME}` (`accountKey`, `nextAttemptAt`)"
+          },
+          {
+            "name": "index_pending_ops_accountKey_peer",
+            "unique": false,
+            "columnNames": [
+              "accountKey",
+              "peer"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_pending_ops_accountKey_peer` ON `${TABLE_NAME}` (`accountKey`, `peer`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "drafts",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountKey` TEXT NOT NULL, `peer` TEXT NOT NULL, `text` TEXT NOT NULL, `replyJson` TEXT, `editingId` TEXT, `updatedAt` INTEGER NOT NULL, PRIMARY KEY(`accountKey`, `peer`))",
+        "fields": [
+          {
+            "fieldPath": "accountKey",
+            "columnName": "accountKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "peer",
+            "columnName": "peer",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "replyJson",
+            "columnName": "replyJson",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "editingId",
+            "columnName": "editingId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "accountKey",
+            "peer"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "sync_state",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountKey` TEXT NOT NULL, `cursor` INTEGER NOT NULL, `importedLegacy` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, PRIMARY KEY(`accountKey`))",
+        "fields": [
+          {
+            "fieldPath": "accountKey",
+            "columnName": "accountKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cursor",
+            "columnName": "cursor",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "importedLegacy",
+            "columnName": "importedLegacy",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "accountKey"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "notification_deliveries",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountKey` TEXT NOT NULL, `peer` TEXT NOT NULL, `messageId` TEXT NOT NULL, `status` INTEGER NOT NULL, `claimedAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, PRIMARY KEY(`accountKey`, `peer`, `messageId`))",
+        "fields": [
+          {
+            "fieldPath": "accountKey",
+            "columnName": "accountKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "peer",
+            "columnName": "peer",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "messageId",
+            "columnName": "messageId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "claimedAt",
+            "columnName": "claimedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "accountKey",
+            "peer",
+            "messageId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_notification_deliveries_accountKey_status",
+            "unique": false,
+            "columnNames": [
+              "accountKey",
+              "status"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_notification_deliveries_accountKey_status` ON `${TABLE_NAME}` (`accountKey`, `status`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '81e52bb59f9436db6c59b4f5fd2d42ac')"
+    ]
+  }
+}

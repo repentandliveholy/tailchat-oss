@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Same value as `signal`/`colorScheme.primary` in Theme.kt's
+         GreenTokens — the accent already tuned for contrast against a
+         near-black surface, reused here so the splash icon (drawn before
+         Compose exists, so it cannot read the theme) still matches it. -->
+    <color name="splash_icon_tint">#3FB950</color>
+    <color name="splash_background">#0B0F0E</color>
+</resources>

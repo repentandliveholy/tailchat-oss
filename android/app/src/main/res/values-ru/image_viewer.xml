@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="image_viewer_open">Открыть изображение</string>
+    <string name="image_viewer_close">Закрыть</string>
+    <string name="image_viewer_save">Сохранить изображение</string>
+    <string name="image_viewer_saved">Сохранено: %1$s</string>
+    <string name="image_viewer_save_failed">Не удалось сохранить изображение.</string>
+    <string name="image_viewer_counter">%1$d / %2$d</string>
+    <string name="image_viewer_next">Следующее изображение</string>
+    <string name="image_viewer_previous">Предыдущее изображение</string>
+    <string name="image_viewer_failed">Не удалось показать изображение.</string>
+</resources>

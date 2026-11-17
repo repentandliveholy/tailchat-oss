@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="emoji_search">Rechercher un emoji</string>
+    <string name="emoji_nothing">Aucun résultat</string>
+    <string name="emoji_quick_settings">Réactions rapides</string>
+    <string name="emoji_quick_slot">Réaction %1$d : %2$s</string>
+    <string name="emoji_more">Tous les emojis</string>
+    <string name="message_edited_at">Modifié : %1$s</string>
+    <string name="message_select">Sélectionner</string>
+    <string-array name="emoji_categories">
+        <item>Récents</item>
+        <item>Sourires</item>
+        <item>Personnes et gestes</item>
+        <item>Animaux et nature</item>
+        <item>Alimentation</item>
+        <item>Activités</item>
+        <item>Voyages</item>
+        <item>Objets</item>
+        <item>Symboles</item>
+        <item>Drapeaux</item>
+    </string-array>
+</resources>

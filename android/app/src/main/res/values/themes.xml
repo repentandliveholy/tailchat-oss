@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Tailchat" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">#F6F8FA</item>
+        <item name="android:navigationBarColor">#F6F8FA</item>
+        <item name="android:windowBackground">#F6F8FA</item>
+    </style>
+
+    <!-- The system splash (Android 12+ natively, androidx.core.splashscreen
+         drawing the same look back to API 29 — see MainActivity's
+         installSplashScreen call): a plain surface in the same colour
+         Theme.Tailchat itself opens on, not a fixed black square baked into
+         an icon. splash_icon is colour-neutral art with no background of
+         its own, so it reads on this the same way it does in the app. -->
+    <style name="Theme.Tailchat.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon</item>
+        <item name="postSplashScreenTheme">@style/Theme.Tailchat</item>
+    </style>
+</resources>

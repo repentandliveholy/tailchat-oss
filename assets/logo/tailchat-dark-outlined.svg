@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Tailchat — dark (TC outlined)</title>
+  <defs><clipPath id="plate"><rect x="16" y="16" width="480" height="480" rx="108"></rect></clipPath></defs>
+  <rect x="16" y="16" width="480" height="480" rx="108" fill="#0D1117" stroke="#21262D" stroke-width="8"></rect>
+  <g clip-path="url(#plate)" stroke="#21262D" stroke-width="2">
+    <path d="M16 64H496M16 128H496M16 192H496M16 256H496M16 320H496M16 384H496M16 448H496"></path>
+  </g>
+  <g stroke="#3FB950" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+    <polygon points="120,200 160,84 216,160" fill="#101A13"></polygon>
+    <polygon points="392,200 352,84 296,160" fill="#101A13"></polygon>
+    <path d="M 120,200 C 100,240 108,290 148,312 C 180,328 332,328 364,312 C 404,290 412,240 392,200 C 370,166 330,166 256,170 C 182,166 142,166 120,200 Z" fill="#0B0F14"></path>
+  </g>
+  <ellipse cx="196" cy="236" rx="28" ry="32" fill="#0D1117" stroke="#3FB950" stroke-width="6"></ellipse>
+  <circle cx="196" cy="236" r="18" fill="#3FB950"></circle>
+  <circle cx="188" cy="226" r="7" fill="#0D1117"></circle>
+  <circle cx="204" cy="244" r="3" fill="#0D1117"></circle>
+  <ellipse cx="316" cy="236" rx="28" ry="32" fill="#0D1117" stroke="#3FB950" stroke-width="6"></ellipse>
+  <circle cx="316" cy="236" r="18" fill="#3FB950"></circle>
+  <circle cx="308" cy="226" r="7" fill="#0D1117"></circle>
+  <circle cx="324" cy="244" r="3" fill="#0D1117"></circle>
+  <polygon points="256,260 248,252 264,252" fill="#3FB950"></polygon>
+  <path d="M 244,268 C 248,276 256,276 256,268 C 256,276 264,276 268,268" fill="none" stroke="#3FB950" stroke-width="5" stroke-linecap="round"></path>
+  <g stroke="#3FB950" stroke-width="5" stroke-linecap="round" opacity="0.75">
+    <line x1="156" y1="248" x2="80" y2="232"></line><line x1="154" y1="258" x2="76" y2="254"></line><line x1="152" y1="268" x2="74" y2="276"></line>
+    <line x1="356" y1="248" x2="432" y2="232"></line><line x1="358" y1="258" x2="436" y2="254"></line><line x1="360" y1="268" x2="438" y2="276"></line>
+  </g>
+  <path d="M212.248 458V393.832H192.384V382.08H245.216V393.832H225.352V458Z M286.032 459.04Q278.648 459.04 273.24 456.284Q267.832 453.528 264.868 448.484Q261.904 443.44 261.904 436.576V403.504Q261.904 396.64 264.868 391.596Q267.832 386.552 273.24 383.796Q278.648 381.04 286.032 381.04Q293.312 381.04 298.72 383.796Q304.128 386.552 307.144 391.596Q310.16 396.64 310.16 403.504H297.056Q297.056 398.2 294.196 395.34Q291.336 392.48 286.032 392.48Q280.728 392.48 277.816 395.34Q274.904 398.2 274.904 403.504V436.576Q274.904 441.88 277.816 444.74Q280.728 447.6 286.032 447.6Q291.336 447.6 294.196 444.74Q297.056 441.88 297.056 436.576H310.16Q310.16 443.44 307.144 448.484Q304.128 453.528 298.72 456.284Q293.312 459.04 286.032 459.04Z" fill="#E6EDF3"></path>
+  <g transform="translate(420,72) scale(0.9)" fill="#3FB950">
+    <rect x="-6" y="-18" width="12" height="36" rx="3"></rect>
+    <rect x="-18" y="-6" width="36" height="12" rx="3"></rect>
+  </g>
+</svg>

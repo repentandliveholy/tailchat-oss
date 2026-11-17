@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Совпадает с `pastedImage` веба: он узнаёт эту строку на любом языке как «без подписи»
+         и рисует картинку без баббла. Не менять текст отдельно от веба. -->
+    <string name="cloud_image_placeholder">🖼 [Изображение]</string>
+    <string name="cloud_image_unreadable">Не удалось прочитать изображение.</string>
+    <string name="cloud_image_too_big">Изображение слишком большое даже после сжатия.</string>
+
+    <string name="image_editor_title">Отправка изображения</string>
+    <string name="image_editor_preview">Отправляемое изображение</string>
+    <string name="image_editor_cancel">Отмена</string>
+    <string name="image_editor_crop">Обрезать</string>
+    <string name="image_editor_ratio_group">Пропорции</string>
+    <string name="image_editor_ratio_free">Свободно</string>
+    <string name="image_editor_rotate">Повернуть 90°</string>
+    <string name="image_editor_reset">Сбросить</string>
+    <string name="image_editor_caption">Подпись</string>
+    <string name="image_editor_send">Отправить</string>
+    <string name="image_editor_loading">Готовим изображение…</string>
+    <string name="image_editor_failed">Не удалось открыть изображение.</string>
+</resources>

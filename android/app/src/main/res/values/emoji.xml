@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="emoji_search">Search emoji</string>
+    <string name="emoji_nothing">Nothing found</string>
+    <string name="emoji_quick_settings">Quick reactions</string>
+    <string name="emoji_quick_slot">Reaction %1$d: %2$s</string>
+    <string name="emoji_more">All emoji</string>
+    <string name="message_edited_at">Edited: %1$s</string>
+    <string name="message_select">Select</string>
+    <string-array name="emoji_categories">
+        <item>Recent</item>
+        <item>Smileys</item>
+        <item>People and gestures</item>
+        <item>Animals and nature</item>
+        <item>Food</item>
+        <item>Activities</item>
+        <item>Travel</item>
+        <item>Objects</item>
+        <item>Symbols</item>
+        <item>Flags</item>
+    </string-array>
+</resources>

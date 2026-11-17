@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_outlines">Contours</string>
+    <string name="settings_outlines_hint">Un trait fin autour des bulles, cartes, champs et avatars ; la mise en page ne bouge pas</string>
+    <string name="settings_depth">Relief</string>
+    <string name="settings_depth_hint">Ombres, lumière et halo sur les barres, cartes et bulles ; désactivé = rendu plat</string>
+    <string name="settings_link_previews">Aperçus de liens</string>
+    <string name="settings_link_previews_hint">Une carte avec le titre et l\'image sous un message contenant un lien</string>
+    <string name="settings_behavior">Messages</string>
+</resources>

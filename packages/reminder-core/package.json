@@ -1,0 +1,12 @@
+{
+  "name": "@tailchat/reminder-core",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "types": "./index.d.ts",
+  "exports": "./index.js",
+  "dependencies": {
+    "chrono-node": "^2.7.0",
+    "luxon": "^3.5.0"
+  }
+}

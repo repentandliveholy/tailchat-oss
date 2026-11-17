@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Only the downloaded APK is served by FileProvider. Camera photos use the
+     memory-backed SecureCameraProvider, never a plaintext cache file. -->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <cache-path name="updates" path="updates/" />
+</paths>

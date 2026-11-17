@@ -1,0 +1,42 @@
+[package]
+name = "tailchat-net"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+default = ["native"]
+# The native driver: its own thread, tokio, rustls, SQLCipher. Without it the
+# crate is the portable half the browser driver (`tailchat-web`) shares: the
+# executor, the notices and the JSON the JavaScript side reads.
+native = ["dep:tailchat-store", "dep:tokio", "dep:tokio-tungstenite", "dep:tokio-rustls", "dep:rustls", "dep:webpki-roots", "dep:httparse"]
+
+[dependencies]
+tailchat-core = { path = "../tailchat-core" }
+tailchat-store = { path = "../tailchat-store", optional = true }
+serde_json = "1"
+# One current-thread runtime on the driver's own thread: timers, sockets,
+# `select!`. No multi-thread scheduler, no process/signal/fs.
+tokio = { version = "1", default-features = false, features = ["rt", "time", "sync", "net", "io-util", "macros"], optional = true }
+# The WebSocket. TLS is rustls; the roots are Mozilla's, compiled in.
+tokio-tungstenite = { version = "0.30", default-features = false, features = ["connect", "rustls-tls-webpki-roots"], optional = true }
+# The same TLS stack for the history GET (a small HTTP/1.1 client, `http.rs`);
+# tokio-rustls, rustls and httparse are already in the tree through tungstenite.
+tokio-rustls = { version = "0.26", default-features = false, features = ["tls12"], optional = true }
+rustls = { version = "0.23", default-features = false, features = ["ring", "std", "tls12"], optional = true }
+webpki-roots = { version = "1", optional = true }
+httparse = { version = "1", optional = true }
+futures-util = { version = "0.3", default-features = false, features = ["std", "sink"] }
+thiserror = "2"
+zeroize = "1"
+
+[dev-dependencies]
+tempfile = "3"
+# A throwaway certificate for the local wss/https tests; nothing secret is
+# committed.
+rcgen = { version = "0.14", default-features = false, features = ["crypto", "ring"] }

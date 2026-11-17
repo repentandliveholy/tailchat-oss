@@ -1,0 +1,15 @@
+{
+  "name": "tailchat-bots",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Long-running bots that live in Tailchat as ordinary contacts",
+  "type": "module",
+  "scripts": {
+    "reminder": "node reminder.mjs",
+    "reminder:help": "node reminder.mjs --help",
+    "reminder:test": "node reminder.mjs --self-test"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

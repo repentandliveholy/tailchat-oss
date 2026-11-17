@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cloud_theme_paper">Livre</string>
+    <string name="cloud_roster_search">Rechercher des conversations</string>
+    <string name="cloud_roster_search_clear">Effacer la recherche</string>
+    <string name="cloud_roster_counts">%1$d contacts · %2$d en ligne</string>
+    <string name="cloud_peer_menu">Options de conversation</string>
+    <string name="cloud_peer_profile">Profil du contact</string>
+    <string name="cloud_swipe_mute">Mettre en sourdine</string>
+    <string name="cloud_swipe_unmute">Réactiver le son</string>
+    <string name="cloud_swipe_mark_read">Lu</string>
+    <string name="cloud_swipe_mark_unread">Non lu</string>
+    <string name="cloud_msg_remind">Rappeler</string>
+    <string name="cloud_msg_remind_15m">15 minutes</string>
+    <string name="cloud_msg_remind_1h">1 heure</string>
+    <string name="cloud_msg_remind_evening">ce soir</string>
+    <string name="cloud_msg_remind_tomorrow">demain</string>
+    <string name="cloud_reply_reminder_due">Il est temps de répondre à %1$s</string>
+    <string name="cloud_swipe_more">Plus</string>
+    <string name="cloud_official_account">Compte de service</string>
+    <!-- See `cloud_bot_menu` in the default strings. -->
+    <string name="cloud_bot_menu">Menu</string>
+    <!-- See the selection keys in the default strings; the wording is the one
+         web's own French bundle uses (`msgSelectedCount` etc., app.js:1256-1259). -->
+    <string name="cloud_selection_count">Sélectionnés : %1$d</string>
+    <string name="cloud_selection_delete">Supprimer</string>
+    <string name="cloud_selection_cancel">Annuler</string>
+    <string name="cloud_msg_delete_self_count">Supprimer pour moi (%1$d)</string>
+    <string name="cloud_msg_delete_all_count">Supprimer pour tout le monde (%1$d)</string>
+    <string name="cloud_error_history_failed">Impossible de charger la conversation avec @%1$s : ses messages ne passent pas par cette connexion.</string>
+</resources>

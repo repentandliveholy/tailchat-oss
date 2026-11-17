@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The status-bar / shade icon: the wordmark's own "TC" monogram, taken as
+     curves from the brand master (`assets/logo/tailchat-light-outlined.svg`,
+     JetBrains Mono Bold outlines) and scaled into 24dp.
+
+     It used to be the brand cat's ears-and-head silhouette with the eyes as
+     cutouts, and the owner reported what that came to at status-bar size: an
+     angry cat, not a logo. There is no room there for the tile, the whiskers or
+     the cat's face, and the two surviving features — sharp ears above two round
+     eyes — are exactly the ones that read as a scowl. The lettering is the
+     other half of the same mark, it is what the app is *called*, and two
+     letters with real counters survive tinting to one flat colour at 24dp
+     better than any facial feature does.
+
+     Letters only, no panel: the system tints the whole icon to a single colour
+     and draws it over whatever the bar is showing, so a background would be
+     flattened into the glyph anyway. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="#FFFFFF">
+    <!-- The master's letter box is x 192.384..310.16, y 381.04..459.04; this
+         scales it to the 22dp inside a 24dp icon (the 1dp margin the platform
+         asks for) and centres it: 22 / 117.776 = 0.186795. -->
+    <group
+        android:scaleX="0.186795"
+        android:scaleY="0.186795"
+        android:translateX="-34.937"
+        android:translateY="-66.462">
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M212.248 458V393.832H192.384V382.08H245.216V393.832H225.352V458Z M286.032 459.04Q278.648 459.04 273.24 456.284Q267.832 453.528 264.868 448.484Q261.904 443.44 261.904 436.576V403.504Q261.904 396.64 264.868 391.596Q267.832 386.552 273.24 383.796Q278.648 381.04 286.032 381.04Q293.312 381.04 298.72 383.796Q304.128 386.552 307.144 391.596Q310.16 396.64 310.16 403.504H297.056Q297.056 398.2 294.196 395.34Q291.336 392.48 286.032 392.48Q280.728 392.48 277.816 395.34Q274.904 398.2 274.904 403.504V436.576Q274.904 441.88 277.816 444.74Q280.728 447.6 286.032 447.6Q291.336 447.6 294.196 444.74Q297.056 441.88 297.056 436.576H310.16Q310.16 443.44 307.144 448.484Q304.128 453.528 298.72 456.284Q293.312 459.04 286.032 459.04Z" />
+    </group>
+</vector>

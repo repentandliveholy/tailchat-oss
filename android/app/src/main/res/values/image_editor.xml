@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- What an image sent without a caption says. Web writes its `pastedImage` string in
+         the same place, and recognises it — in every language — as "no caption", so a picture
+         sent from here is drawn without a bubble there. Keep the text identical to web's. -->
+    <string name="cloud_image_placeholder">🖼 [Image]</string>
+    <string name="cloud_image_unreadable">Could not read that image.</string>
+    <string name="cloud_image_too_big">The image is too large even after compression.</string>
+
+    <!-- The sheet every picture passes through before it is sent. -->
+    <string name="image_editor_title">Send an image</string>
+    <string name="image_editor_preview">Picture to send</string>
+    <string name="image_editor_cancel">Cancel</string>
+    <string name="image_editor_crop">Crop</string>
+    <string name="image_editor_ratio_group">Aspect ratio</string>
+    <string name="image_editor_ratio_free">Free</string>
+    <string name="image_editor_rotate">Rotate 90°</string>
+    <string name="image_editor_reset">Reset</string>
+    <string name="image_editor_caption">Caption</string>
+    <string name="image_editor_send">Send</string>
+    <string name="image_editor_loading">Preparing image…</string>
+    <string name="image_editor_failed">Could not open this image.</string>
+</resources>

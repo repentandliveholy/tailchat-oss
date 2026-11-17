@@ -1,0 +1,26 @@
+#!/bin/sh
+# Why a shell wrapper and not a `#!/usr/bin/env node` shebang on the js file:
+# Android has no /usr at all, so /usr/bin/env does not exist. Termux normally
+# hides that with an LD_PRELOAD shim (libtermux-exec) that rewrites shebangs on
+# the fly, and inside an interactive Termux shell it works — but anywhere the
+# shim is not loaded (ssh, cron, a script, another app's exec) the kernel finds
+# no interpreter and the launch fails with `env: 'node': Permission denied`.
+# That is why `tailchat` had to be run as `node bin/tailchat.js` on a phone.
+#
+# /bin/sh exists on Android (a symlink to /system/bin/sh), on macOS and on every
+# Linux, so this file is the one thing that can be executed everywhere.
+
+# The path of this script, following the symlink npm leaves on PATH. `readlink -f`
+# would be one line, but BSD readlink (macOS) has no -f, so the loop is the
+# portable way. One level is all npm creates; the loop costs nothing and survives
+# a hand-made second link.
+self=$0
+while [ -L "$self" ]; do
+  target=$(readlink "$self")
+  case $target in
+    /*) self=$target ;;
+    *) self=$(dirname "$self")/$target ;;
+  esac
+done
+
+exec node "$(dirname "$self")/tailchat.js" "$@"

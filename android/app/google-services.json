@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "913339132501",
+    "project_id": "tailchat-6d3be",
+    "storage_bucket": "tailchat-6d3be.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913339132501:android:c52ad8afebe00192ac42dc",
+        "android_client_info": {
+          "package_name": "net.tailchat.android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFTfgGXUXpSOmxx510QLZskgk6BrQ3Csw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
