@@ -460,7 +460,17 @@ test('a damaged marker is ignored rather than crashing the client', () => {
 });
 
 test('an unwritable state directory costs a report, not the session', () => {
-  assert.equal(writeLastRun('/proc/nope/nowhere', { version: '1', commit: 'a' }), false);
+  // A directory "inside" a plain file is ENOTDIR on every OS. Not /proc: there
+  // Linux answers ENOENT under an existing parent and a recursive mkdirSync
+  // retries that step forever — the CI job spun at full CPU on this one line.
+  const root = tempRoot();
+  try {
+    const file = path.join(root, 'plain-file');
+    fs.writeFileSync(file, 'x');
+    assert.equal(writeLastRun(path.join(file, 'state'), { version: '1', commit: 'a' }), false);
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
 });
 
 test('each relaunch counts itself, so the chain of waiting parents is bounded', () => {

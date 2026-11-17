@@ -2285,7 +2285,9 @@ test('headless mode triggers pre-expired reminders on startup without crash', as
     child.stdin.destroy();
     assert.match(output, /Backup database now/);
   } finally {
-    fs.rmSync(tmpDir, { recursive: true, force: true });
+    // The killed client's last writes can still be landing: Node 20's rmSync
+    // met a file that appeared after its scan (ENOTEMPTY) on Linux CI.
+    fs.rmSync(tmpDir, { recursive: true, force: true, maxRetries: 5, retryDelay: 50 });
   }
 });
 
