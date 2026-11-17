@@ -228,13 +228,17 @@ export function parseSha256sum(text) {
  * `ssh` as its stdin, so nothing temporary is left on either side, and the
  * box's own digests are compared with the local ones before this says "ok".
  */
-export function uploadCore({ root, host = RELEASE_HOST, run = spawnSync, build = localCoreBuild(root) } = {}) {
+export function uploadCore({
+  root, host = RELEASE_HOST, run = spawnSync, build = localCoreBuild(root), platform = process.platform,
+} = {}) {
   if (!build.ok) return { ok: false, reason: build.reason };
   // COPYFILE_DISABLE and the two `--no-*` keep macOS from adding `._*`
   // AppleDouble files and xattr headers that GNU tar on the box would unpack
   // or warn about; ustar keeps the archive free of pax extensions.
+  // `--no-mac-metadata` is bsdtar's own flag: GNU tar (Linux) refuses it with
+  // exit 64, and has no AppleDouble files to leave out in the first place.
   const archive = run('tar', [
-    '--no-xattrs', '--no-mac-metadata', '--format', 'ustar',
+    '--no-xattrs', ...(platform === 'darwin' ? ['--no-mac-metadata'] : []), '--format', 'ustar',
     '-C', path.join(root, CORE_PKG_DIR), '-czf', '-', ...CORE_PKG_FILES,
   ], { env: { ...process.env, COPYFILE_DISABLE: '1' }, maxBuffer: 256 * 1024 * 1024 });
   if (archive.error) return { ok: false, reason: `tar: ${archive.error.message}` };

@@ -195,10 +195,14 @@ class ChatWallpaperDrawingTest {
         assertTrue("dark dot one tile on", dark.coverage(22 + step, 22) > 0.25)
         assertTrue("dark gap stays empty", dark.isPaper(22 + step / 2, 22))
 
-        // 55% of `line`: measured against the same pixel in the light render,
-        // so the disc's sub-pixel coverage cancels out exactly.
-        val ratio = dark.coverage(22, 22) / light.coverage(22, 22)
-        assertEquals(0.55, ratio, 0.02)
+        // 55% of `line`: the whole tile's ink against the same tile in the light
+        // render. One pixel is not enough — its 8-bit alpha and the rasteriser's
+        // antialiasing differ between hosts (CI on Linux missed 0.02 on a single
+        // pixel that macOS hit), while a tile's sum averages them out.
+        fun tileInk(bitmap: Bitmap) =
+            (2 until 2 + step).sumOf { y -> (2 until 2 + step).sumOf { x -> bitmap.coverage(x, y) } }
+        val ratio = tileInk(dark) / tileInk(light)
+        assertEquals("dark/light ink", 0.55, ratio, 0.03)
     }
 
     @Test

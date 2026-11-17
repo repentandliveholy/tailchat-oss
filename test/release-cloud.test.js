@@ -477,6 +477,13 @@ test('the upload swaps the pkg in place on the box and trusts only the digests i
   const [tar, ssh] = good.calls;
   assert.equal(tar.options.env.COPYFILE_DISABLE, '1', 'no AppleDouble ._ files from macOS');
   assert.deepEqual(tar.args.slice(-2), [...CORE_PKG_FILES]);
+  // bsdtar's flag only where bsdtar is: GNU tar exits 64 on it.
+  const onMac = fakeRun('');
+  uploadCore({ root: '/repo', run: onMac.run, build, platform: 'darwin' });
+  assert.ok(onMac.calls[0].args.includes('--no-mac-metadata'));
+  const onLinux = fakeRun('');
+  uploadCore({ root: '/repo', run: onLinux.run, build, platform: 'linux' });
+  assert.ok(!onLinux.calls[0].args.includes('--no-mac-metadata'));
   assert.equal(ssh.args[0], 'box');
   assert.equal(ssh.options.input.toString(), 'archive', 'the archive is the ssh stdin');
 

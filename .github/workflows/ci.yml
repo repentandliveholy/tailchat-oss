@@ -11,6 +11,7 @@ permissions:
 jobs:
   node:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -23,10 +24,18 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm audit --omit=dev --audit-level=high
-      - run: node --test --test-concurrency=2
+      # The terminal client keeps its device key in the OS keychain; on Linux
+      # that is the Secret Service, which a runner does not have running.
+      - run: sudo apt-get update -q && sudo apt-get install -y -q gnome-keyring libsecret-tools dbus
+      # A test that hangs fails with its own name instead of holding the job.
+      - run: >-
+          dbus-run-session -- sh -c
+          'printf "\n" | gnome-keyring-daemon --unlock --components=secrets > /dev/null
+          && node --test --test-concurrency=2 --test-timeout=120000'
 
   rust:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     defaults:
       run:
         working-directory: crates
@@ -41,6 +50,7 @@ jobs:
 
   android:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     defaults:
       run:
         working-directory: android

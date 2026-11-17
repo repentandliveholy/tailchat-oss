@@ -1,7 +1,7 @@
 // The terminal's half of docs/specs/2026-11-03-history-media-refs.md: it asks
 // history for references, keeps them as attachments, and fetches the bytes
 // from `/api/media` under a progress watchdog instead of the 8-second deadline.
-import { test } from 'node:test';
+import { after, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { randomBytes } from 'node:crypto';
 import fs from 'node:fs';
@@ -13,6 +13,16 @@ import { createCloudService } from '../src/cloud/server.js';
 import { createCloudApi, CloudApiError } from '../src/cloud/api.js';
 import { frameAttachment, isMediaRefShape } from '../src/cloud/media-ref.js';
 import { messageMediaKind } from '../src/cli.js';
+
+// What a live client always has and these tests do not: a handle that keeps the
+// event loop running (a TTY on stdin, a fetch socket). The code under test
+// unrefs its own timers — the media stall watchdog in `src/cloud/api.js` — so
+// without this, a test that awaits one of them can watch the loop empty first
+// and be cancelled as "still pending" (seen on Linux CI; macOS happened to hold
+// some other handle).
+const keepLoopAlive = setInterval(() => {}, 60_000);
+after(() => clearInterval(keepLoopAlive));
+
 
 const PICTURE = randomBytes(5000);
 const DATA_URL = `data:image/png;base64,${PICTURE.toString('base64')}`;

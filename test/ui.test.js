@@ -1,4 +1,4 @@
-import { test } from 'node:test';
+import { after, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PassThrough } from 'node:stream';
 import blessed from 'blessed';
@@ -31,6 +31,16 @@ import {
   RECEIPT_MARKERS,
 } from '../src/ui.js';
 import { transcriptKeys } from '../src/paste.js';
+
+// What a live client always has and these tests do not: a handle that keeps the
+// event loop running (a TTY on stdin, a fetch socket). The code under test
+// unrefs its own timers — the paste-marker wait that holds a lone Esc
+// (`src/paste.js`), the shimmer, the saver — so without this, a test that
+// awaits one of them can watch the loop empty first and be cancelled as "still
+// pending" (seen on Linux CI; macOS happened to hold some other handle).
+const keepLoopAlive = setInterval(() => {}, 60_000);
+after(() => clearInterval(keepLoopAlive));
+
 
 test('status presentation distinguishes online, reconnecting, and offline', () => {
   assert.deepEqual(statusPresentation('online', true), {
